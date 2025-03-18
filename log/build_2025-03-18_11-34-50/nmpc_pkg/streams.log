@@ -1,0 +1,24 @@
+[1.282s] Invoking command in '/home/administrator/nmpc_ws/src/nmpc_pkg': PYTHONPATH=/home/administrator/nmpc_ws/build/nmpc_pkg/prefix_override:/home/administrator/nmpc_ws/install/nmpc_pkg/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../../build/nmpc_pkg build --build-base /home/administrator/nmpc_ws/build/nmpc_pkg/build install --record /home/administrator/nmpc_ws/build/nmpc_pkg/install.log --single-version-externally-managed
+[1.609s] running egg_info
+[1.610s] writing ../../build/nmpc_pkg/nmpc_pkg.egg-info/PKG-INFO
+[1.610s] writing dependency_links to ../../build/nmpc_pkg/nmpc_pkg.egg-info/dependency_links.txt
+[1.613s] writing entry points to ../../build/nmpc_pkg/nmpc_pkg.egg-info/entry_points.txt
+[1.613s] writing requirements to ../../build/nmpc_pkg/nmpc_pkg.egg-info/requires.txt
+[1.613s] writing top-level names to ../../build/nmpc_pkg/nmpc_pkg.egg-info/top_level.txt
+[1.615s] reading manifest file '../../build/nmpc_pkg/nmpc_pkg.egg-info/SOURCES.txt'
+[1.616s] writing manifest file '../../build/nmpc_pkg/nmpc_pkg.egg-info/SOURCES.txt'
+[1.617s] running build
+[1.617s] running build_py
+[1.617s] copying nmpc_pkg/record.py -> /home/administrator/nmpc_ws/build/nmpc_pkg/build/lib/nmpc_pkg
+[1.617s] running install
+[1.618s] running install_lib
+[1.618s] copying /home/administrator/nmpc_ws/build/nmpc_pkg/build/lib/nmpc_pkg/record.py -> /home/administrator/nmpc_ws/install/nmpc_pkg/lib/python3.10/site-packages/nmpc_pkg
+[1.619s] byte-compiling /home/administrator/nmpc_ws/install/nmpc_pkg/lib/python3.10/site-packages/nmpc_pkg/record.py to record.cpython-310.pyc
+[1.620s] running install_data
+[1.621s] running install_egg_info
+[1.623s] removing '/home/administrator/nmpc_ws/install/nmpc_pkg/lib/python3.10/site-packages/nmpc_pkg-0.0.0-py3.10.egg-info' (and everything under it)
+[1.624s] Copying ../../build/nmpc_pkg/nmpc_pkg.egg-info to /home/administrator/nmpc_ws/install/nmpc_pkg/lib/python3.10/site-packages/nmpc_pkg-0.0.0-py3.10.egg-info
+[1.624s] running install_scripts
+[1.649s] Installing record script to /home/administrator/nmpc_ws/install/nmpc_pkg/lib/nmpc_pkg
+[1.650s] writing list of installed files to '/home/administrator/nmpc_ws/build/nmpc_pkg/install.log'
+[1.686s] Invoked command in '/home/administrator/nmpc_ws/src/nmpc_pkg' returned '0': PYTHONPATH=/home/administrator/nmpc_ws/build/nmpc_pkg/prefix_override:/home/administrator/nmpc_ws/install/nmpc_pkg/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../../build/nmpc_pkg build --build-base /home/administrator/nmpc_ws/build/nmpc_pkg/build install --record /home/administrator/nmpc_ws/build/nmpc_pkg/install.log --single-version-externally-managed

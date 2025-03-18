@@ -1,0 +1,21 @@
+[1.281s] Invoking command in '/home/administrator/nmpc_ws/src/nmpc_pkg': PYTHONPATH=/home/administrator/nmpc_ws/build/nmpc_pkg/prefix_override:/home/administrator/nmpc_ws/install/nmpc_pkg/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../../build/nmpc_pkg build --build-base /home/administrator/nmpc_ws/build/nmpc_pkg/build install --record /home/administrator/nmpc_ws/build/nmpc_pkg/install.log --single-version-externally-managed
+[1.623s] running egg_info
+[1.623s] writing ../../build/nmpc_pkg/nmpc_pkg.egg-info/PKG-INFO
+[1.624s] writing dependency_links to ../../build/nmpc_pkg/nmpc_pkg.egg-info/dependency_links.txt
+[1.626s] writing entry points to ../../build/nmpc_pkg/nmpc_pkg.egg-info/entry_points.txt
+[1.626s] writing requirements to ../../build/nmpc_pkg/nmpc_pkg.egg-info/requires.txt
+[1.627s] writing top-level names to ../../build/nmpc_pkg/nmpc_pkg.egg-info/top_level.txt
+[1.629s] reading manifest file '../../build/nmpc_pkg/nmpc_pkg.egg-info/SOURCES.txt'
+[1.630s] writing manifest file '../../build/nmpc_pkg/nmpc_pkg.egg-info/SOURCES.txt'
+[1.630s] running build
+[1.630s] running build_py
+[1.630s] running install
+[1.631s] running install_lib
+[1.632s] running install_data
+[1.633s] running install_egg_info
+[1.635s] removing '/home/administrator/nmpc_ws/install/nmpc_pkg/lib/python3.10/site-packages/nmpc_pkg-0.0.0-py3.10.egg-info' (and everything under it)
+[1.635s] Copying ../../build/nmpc_pkg/nmpc_pkg.egg-info to /home/administrator/nmpc_ws/install/nmpc_pkg/lib/python3.10/site-packages/nmpc_pkg-0.0.0-py3.10.egg-info
+[1.636s] running install_scripts
+[1.659s] Installing record script to /home/administrator/nmpc_ws/install/nmpc_pkg/lib/nmpc_pkg
+[1.660s] writing list of installed files to '/home/administrator/nmpc_ws/build/nmpc_pkg/install.log'
+[1.695s] Invoked command in '/home/administrator/nmpc_ws/src/nmpc_pkg' returned '0': PYTHONPATH=/home/administrator/nmpc_ws/build/nmpc_pkg/prefix_override:/home/administrator/nmpc_ws/install/nmpc_pkg/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../../build/nmpc_pkg build --build-base /home/administrator/nmpc_ws/build/nmpc_pkg/build install --record /home/administrator/nmpc_ws/build/nmpc_pkg/install.log --single-version-externally-managed
