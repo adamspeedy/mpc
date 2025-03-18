@@ -1,0 +1,12 @@
+# Ignore build artifacts
+build/
+devel/
+install/
+
+# Python cache files
+__pycache__/
+*.pyc
+*.pyo
+
+# VSCode settings
+.vscode/
