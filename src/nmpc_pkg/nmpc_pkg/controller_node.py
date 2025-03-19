@@ -11,7 +11,7 @@ from geometry_msgs.msg import Twist
 from .controller_class import Controller  
 
 class NMPCNode(Node):
-    PLOTTER_ADDRESS = ('196.24.156.197', 12345)     #hardcoded ip address for external plotter
+    PLOTTER_ADDRESS = ('196.24.139.40', 12345)     #hardcoded ip address for external plotter
     N = 20                                          #prediction horizon
     PATH_TYPE = 'repeat'                            #path-following behaviour options: 'stop' or 'repeat'
 
@@ -27,10 +27,10 @@ class NMPCNode(Node):
         #load parameters
         self.declare_parameter('rate', 10)
         self.declare_parameter('trajectory_file', '/home/administrator/nmpc_ws/data/trajectories/recorded_odometry.csv')
-        self.declare_parameter('min_v', -1)
-        self.declare_parameter('max_v', 1)
-        self.declare_parameter('min_w', -np.pi/2)
-        self.declare_parameter('max_w', np.pi/2)
+        self.declare_parameter('min_v', -1.0)
+        self.declare_parameter('max_v', 1.0)
+        self.declare_parameter('min_w', -1.5)
+        self.declare_parameter('max_w', 1.5)
         
         #retrieve parameter values
         self.rate = self.get_parameter('rate').value
