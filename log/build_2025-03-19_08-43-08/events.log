@@ -1,0 +1,339 @@
+[0.000000] (-) TimerEvent: {}
+[0.000519] (aru_navigan) JobQueued: {'identifier': 'aru_navigan', 'dependencies': OrderedDict()}
+[0.000709] (nmpc_pkg) JobQueued: {'identifier': 'nmpc_pkg', 'dependencies': OrderedDict()}
+[0.000913] (aru_navigan) JobStarted: {'identifier': 'aru_navigan'}
+[0.099677] (-) TimerEvent: {}
+[0.197282] (nmpc_pkg) JobStarted: {'identifier': 'nmpc_pkg'}
+[0.199758] (-) TimerEvent: {}
+[0.300026] (-) TimerEvent: {}
+[0.400599] (-) TimerEvent: {}
+[0.426671] (aru_navigan) JobProgress: {'identifier': 'aru_navigan', 'progress': 'cmake'}
+[0.426955] (aru_navigan) Command: {'cmd': ['/usr/bin/cmake', '/home/administrator/nmpc_ws/src/navigan', '-DCMAKE_INSTALL_PREFIX=/home/administrator/nmpc_ws/install/aru_navigan'], 'cwd': '/home/administrator/nmpc_ws/build/aru_navigan', 'env': OrderedDict([('LESSOPEN', '| /usr/bin/lesspipe %s'), ('USER', 'administrator'), ('SSH_CLIENT', '196.24.139.40 61987 22'), ('XDG_SESSION_TYPE', 'tty'), ('GIT_ASKPASS', '/home/administrator/.vscode-server/cli/servers/Stable-ddc367ed5c8936efe395cffeec279b04ffd7db78/server/extensions/git/dist/askpass.sh'), ('SHLVL', '2'), ('LD_LIBRARY_PATH', '/home/administrator/code/ros2_msgs/install/people_msgs/lib:/home/administrator/code/nav2_plugins/install/vector_pursuit_controller/lib:/home/administrator/code/nav2_plugins/install/nav2_social_costmap_plugin/lib:/home/administrator/code/nav2_plugins/install/nav2_navigan_planner/lib:/home/administrator/code/ros2_plugin_ws/install/nav2_straightline_planner/lib:/home/administrator/code/ublox_ws/install/ublox_msgs/lib:/usr/lib/x86_64-linux-gnu/gazebo-11/plugins:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib:/home/administrator/code/ros2_msgs/install/people_msgs/lib:'), ('BROWSER', '/home/administrator/.vscode-server/cli/servers/Stable-ddc367ed5c8936efe395cffeec279b04ffd7db78/server/bin/helpers/browser.sh'), ('MOTD_SHOWN', 'pam'), ('HOME', '/home/administrator'), ('OLDPWD', '/home/administrator/nmpc_ws/src'), ('TERM_PROGRAM_VERSION', '1.98.2'), ('VSCODE_IPC_HOOK_CLI', '/run/user/1000/vscode-ipc-fdef6a25-8c35-4221-818f-6a26dcbac6bf.sock'), ('ROS_PYTHON_VERSION', '3'), ('VSCODE_GIT_ASKPASS_MAIN', '/home/administrator/.vscode-server/cli/servers/Stable-ddc367ed5c8936efe395cffeec279b04ffd7db78/server/extensions/git/dist/askpass-main.js'), ('VSCODE_GIT_ASKPASS_NODE', '/home/administrator/.vscode-server/cli/servers/Stable-ddc367ed5c8936efe395cffeec279b04ffd7db78/server/node'), ('SSL_CERT_FILE', '/usr/lib/ssl/certs/ca-certificates.crt'), ('PYDEVD_DISABLE_FILE_VALIDATION', '1'), ('BUNDLED_DEBUGPY_PATH', '/home/administrator/.vscode-server/extensions/ms-python.debugpy-2025.4.1/bundled/libs/debugpy'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('COLORTERM', 'truecolor'), ('COLCON_PREFIX_PATH', '/home/administrator/code/nav2_plugins/install:/home/administrator/code/ros2_msgs/install:/home/administrator/code/zed_ws/install:/home/administrator/code/ros2_plugin_ws/install:/home/administrator/code/ublox_ws/install'), ('ROS_DISTRO', 'humble'), ('LOGNAME', 'administrator'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('XDG_SESSION_CLASS', 'user'), ('TERM', 'xterm-256color'), ('XDG_SESSION_ID', '1'), ('ROS_LOCALHOST_ONLY', '0'), ('PATH', '/home/administrator/.vscode-server/cli/servers/Stable-ddc367ed5c8936efe395cffeec279b04ffd7db78/server/bin/remote-cli:/opt/ros/humble/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/home/administrator/.vscode-server/extensions/ms-python.debugpy-2025.4.1/bundled/scripts/noConfigScripts'), ('XDG_RUNTIME_DIR', '/run/user/1000'), ('SSL_CERT_DIR', '/usr/lib/ssl/certs'), ('VSCODE_DEBUGPY_ADAPTER_ENDPOINTS', '/home/administrator/.vscode-server/extensions/ms-python.debugpy-2025.4.1/.noConfigDebugAdapterEndpoints/endpoint-8338386ebcead68d.txt'), ('LANG', 'en_US.UTF-8'), ('RMW_IMPLEMENTATION', 'rmw_fastrtps_cpp'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('VSCODE_GIT_IPC_HANDLE', '/run/user/1000/vscode-git-3cc937a741.sock'), ('TERM_PROGRAM', 'vscode'), ('ROS_DOMAIN_ID', '0'), ('AMENT_PREFIX_PATH', '/home/administrator/code/nav2_plugins/install/vector_pursuit_controller:/home/administrator/code/nav2_plugins/install/nav2_social_costmap_plugin:/home/administrator/code/nav2_plugins/install/nav2_navigan_planner:/home/administrator/code/ros2_msgs/install/people_msgs:/home/administrator/code/ros2_plugin_ws/install/nav2_straightline_planner:/home/administrator/code/ros2_plugin_ws/install/nav2_navigan_planner:/home/administrator/code/ublox_ws/install/ublox_ros2:/home/administrator/code/ublox_ws/install/ublox_msgs:/home/administrator/code/bumblebee_ws/install/bumblebee_wrapper:/opt/ros/humble'), ('SHELL', '/bin/bash'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('VSCODE_GIT_ASKPASS_EXTRA_ARGS', ''), ('PWD', '/home/administrator/nmpc_ws/build/aru_navigan'), ('SSH_CONNECTION', '196.24.139.40 61987 197.239.170.33 22'), ('XDG_DATA_DIRS', '/usr/local/share:/usr/share:/var/lib/snapd/desktop'), ('PYTHONPATH', '/home/administrator/code/ros2_msgs/install/people_msgs/local/lib/python3.10/dist-packages:/home/administrator/code/ublox_ws/install/ublox_ros2/lib/python3.10/site-packages:/home/administrator/code/ublox_ws/install/ublox_msgs/local/lib/python3.10/dist-packages:/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages'), ('COLCON', '1'), ('CMAKE_PREFIX_PATH', '/home/administrator/code/ros2_msgs/install:/home/administrator/code/nav2_plugins/install/vector_pursuit_controller:/home/administrator/code/nav2_plugins/install/nav2_social_costmap_plugin:/home/administrator/code/nav2_plugins/install/nav2_navigan_planner:/home/administrator/code/ros2_msgs/install/people_msgs:/home/administrator/code/ros2_plugin_ws/install/nav2_straightline_planner:/home/administrator/code/ros2_plugin_ws/install/nav2_navigan_planner:/home/administrator/code/ublox_ws/install/ublox_msgs:/home/administrator/code/ros2_msgs/install::/home/administrator/code/ublox_ws/install/ublox_ros2:/home/administrator/code/bumblebee_ws/install/bumblebee_wrapper:/opt/ros/humble')]), 'shell': False}
+[0.500691] (-) TimerEvent: {}
+[0.575072] (aru_navigan) StdoutLine: {'line': b'-- The C compiler identification is GNU 11.4.0\n'}
+[0.600799] (-) TimerEvent: {}
+[0.680226] (aru_navigan) StdoutLine: {'line': b'-- The CXX compiler identification is GNU 11.4.0\n'}
+[0.694561] (aru_navigan) StdoutLine: {'line': b'-- Detecting C compiler ABI info\n'}
+[0.700903] (-) TimerEvent: {}
+[0.801648] (-) TimerEvent: {}
+[0.806301] (aru_navigan) StdoutLine: {'line': b'-- Detecting C compiler ABI info - done\n'}
+[0.817693] (aru_navigan) StdoutLine: {'line': b'-- Check for working C compiler: /usr/bin/cc - skipped\n'}
+[0.818317] (aru_navigan) StdoutLine: {'line': b'-- Detecting C compile features\n'}
+[0.819453] (aru_navigan) StdoutLine: {'line': b'-- Detecting C compile features - done\n'}
+[0.824201] (aru_navigan) StdoutLine: {'line': b'-- Detecting CXX compiler ABI info\n'}
+[0.901946] (-) TimerEvent: {}
+[0.957579] (aru_navigan) StdoutLine: {'line': b'-- Detecting CXX compiler ABI info - done\n'}
+[0.978057] (aru_navigan) StdoutLine: {'line': b'-- Check for working CXX compiler: /usr/bin/c++ - skipped\n'}
+[0.978625] (aru_navigan) StdoutLine: {'line': b'-- Detecting CXX compile features\n'}
+[0.979436] (aru_navigan) StdoutLine: {'line': b'-- Detecting CXX compile features - done\n'}
+[0.980468] (aru_navigan) StdoutLine: {'line': b'-- ROS_DISTRO is: humble\n'}
+[1.002120] (-) TimerEvent: {}
+[1.047446] (aru_navigan) StdoutLine: {'line': b'-- Found PythonInterp: /usr/bin/python3 (found suitable version "3.10.12", minimum required is "3.6") \n'}
+[1.078549] (aru_navigan) StdoutLine: {'line': b'-- Found PythonLibs: /usr/lib/x86_64-linux-gnu/libpython3.10.so\n'}
+[1.082455] (aru_navigan) StdoutLine: {'line': b'-- Performing Test HAS_FLTO\n'}
+[1.102215] (-) TimerEvent: {}
+[1.202565] (-) TimerEvent: {}
+[1.285168] (aru_navigan) StdoutLine: {'line': b'-- Performing Test HAS_FLTO - Success\n'}
+[1.285470] (aru_navigan) StdoutLine: {'line': b'-- Found pybind11: /usr/local/include (found version "2.12.0dev1")\n'}
+[1.302662] (-) TimerEvent: {}
+[1.312448] (aru_navigan) StdoutLine: {'line': b'-- Found OpenCV: /usr (found version "4.5.4") \n'}
+[1.351615] (aru_navigan) StdoutLine: {'line': b'-- Found Unwind: /usr/include/x86_64-linux-gnu (found suitable version "1.3.2", minimum required is "1.3.2") \n'}
+[1.385193] (aru_navigan) StdoutLine: {'line': b"-- Checking for module 'eigen3'\n"}
+[1.402740] (-) TimerEvent: {}
+[1.405612] (aru_navigan) StdoutLine: {'line': b'--   Found eigen3, version 3.4.0\n'}
+[1.440970] (aru_navigan) StdoutLine: {'line': b'-- Found Eigen: /usr/include/eigen3 (Required is at least version "3.1") \n'}
+[1.441601] (aru_navigan) StdoutLine: {'line': b'-- Eigen found (include: /usr/include/eigen3, version: 3.4.0)\n'}
+[1.491022] (aru_navigan) StdoutLine: {'line': b'-- Found Boost: /usr/lib/x86_64-linux-gnu/cmake/Boost-1.74.0/BoostConfig.cmake (found suitable version "1.74.0", minimum required is "1.65.0") found components: system filesystem date_time iostreams serialization \n'}
+[1.502846] (-) TimerEvent: {}
+[1.512002] (aru_navigan) StdoutLine: {'line': b"-- Checking for module 'flann'\n"}
+[1.526960] (aru_navigan) StdoutLine: {'line': b'--   Found flann, version 1.9.1\n'}
+[1.576923] (aru_navigan) StdoutLine: {'line': b'-- Found FLANN: /usr/lib/x86_64-linux-gnu/libflann_cpp.so  \n'}
+[1.577330] (aru_navigan) StdoutLine: {'line': b'-- FLANN found (include: /usr/include, lib: /usr/lib/x86_64-linux-gnu/libflann_cpp.so)\n'}
+[1.602939] (-) TimerEvent: {}
+[1.637915] (aru_navigan) StdoutLine: {'line': b'-- Looking for pthread.h\n'}
+[1.703050] (-) TimerEvent: {}
+[1.733108] (aru_navigan) StdoutLine: {'line': b'-- Looking for pthread.h - found\n'}
+[1.733462] (aru_navigan) StdoutLine: {'line': b'-- Performing Test CMAKE_HAVE_LIBC_PTHREAD\n'}
+[1.803152] (-) TimerEvent: {}
+[1.848729] (aru_navigan) StdoutLine: {'line': b'-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success\n'}
+[1.850721] (aru_navigan) StdoutLine: {'line': b'-- Found Threads: TRUE  \n'}
+[1.854120] (aru_navigan) StdoutLine: {'line': b'-- Found GLEW: /usr/lib/x86_64-linux-gnu/libGLEW.so  \n'}
+[1.876439] (aru_navigan) StdoutLine: {'line': b'-- Found OpenGL: /usr/lib/x86_64-linux-gnu/libOpenGL.so  found components: OpenGL GLX \n'}
+[1.894974] (nmpc_pkg) Command: {'cmd': ['/usr/bin/python3', 'setup.py', 'egg_info', '--egg-base', '../../build/nmpc_pkg', 'build', '--build-base', '/home/administrator/nmpc_ws/build/nmpc_pkg/build', 'install', '--record', '/home/administrator/nmpc_ws/build/nmpc_pkg/install.log', '--single-version-externally-managed'], 'cwd': '/home/administrator/nmpc_ws/src/nmpc_pkg', 'env': {'LESSOPEN': '| /usr/bin/lesspipe %s', 'USER': 'administrator', 'SSH_CLIENT': '196.24.139.40 61987 22', 'XDG_SESSION_TYPE': 'tty', 'GIT_ASKPASS': '/home/administrator/.vscode-server/cli/servers/Stable-ddc367ed5c8936efe395cffeec279b04ffd7db78/server/extensions/git/dist/askpass.sh', 'SHLVL': '2', 'LD_LIBRARY_PATH': '/home/administrator/code/ros2_msgs/install/people_msgs/lib:/home/administrator/code/nav2_plugins/install/vector_pursuit_controller/lib:/home/administrator/code/nav2_plugins/install/nav2_social_costmap_plugin/lib:/home/administrator/code/nav2_plugins/install/nav2_navigan_planner/lib:/home/administrator/code/ros2_plugin_ws/install/nav2_straightline_planner/lib:/home/administrator/code/ublox_ws/install/ublox_msgs/lib:/usr/lib/x86_64-linux-gnu/gazebo-11/plugins:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib:/home/administrator/code/ros2_msgs/install/people_msgs/lib:', 'BROWSER': '/home/administrator/.vscode-server/cli/servers/Stable-ddc367ed5c8936efe395cffeec279b04ffd7db78/server/bin/helpers/browser.sh', 'MOTD_SHOWN': 'pam', 'HOME': '/home/administrator', 'OLDPWD': '/home/administrator/nmpc_ws/src', 'TERM_PROGRAM_VERSION': '1.98.2', 'VSCODE_IPC_HOOK_CLI': '/run/user/1000/vscode-ipc-fdef6a25-8c35-4221-818f-6a26dcbac6bf.sock', 'ROS_PYTHON_VERSION': '3', 'VSCODE_GIT_ASKPASS_MAIN': '/home/administrator/.vscode-server/cli/servers/Stable-ddc367ed5c8936efe395cffeec279b04ffd7db78/server/extensions/git/dist/askpass-main.js', 'VSCODE_GIT_ASKPASS_NODE': '/home/administrator/.vscode-server/cli/servers/Stable-ddc367ed5c8936efe395cffeec279b04ffd7db78/server/node', 'SSL_CERT_FILE': '/usr/lib/ssl/certs/ca-certificates.crt', 'PYDEVD_DISABLE_FILE_VALIDATION': '1', 'BUNDLED_DEBUGPY_PATH': '/home/administrator/.vscode-server/extensions/ms-python.debugpy-2025.4.1/bundled/libs/debugpy', 'DBUS_SESSION_BUS_ADDRESS': 'unix:path=/run/user/1000/bus', 'COLORTERM': 'truecolor', 'COLCON_PREFIX_PATH': '/home/administrator/code/nav2_plugins/install:/home/administrator/code/ros2_msgs/install:/home/administrator/code/zed_ws/install:/home/administrator/code/ros2_plugin_ws/install:/home/administrator/code/ublox_ws/install', 'ROS_DISTRO': 'humble', 'LOGNAME': 'administrator', '_': '/usr/bin/colcon', 'ROS_VERSION': '2', 'XDG_SESSION_CLASS': 'user', 'TERM': 'xterm-256color', 'XDG_SESSION_ID': '1', 'ROS_LOCALHOST_ONLY': '0', 'PATH': '/home/administrator/.vscode-server/cli/servers/Stable-ddc367ed5c8936efe395cffeec279b04ffd7db78/server/bin/remote-cli:/opt/ros/humble/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/home/administrator/.vscode-server/extensions/ms-python.debugpy-2025.4.1/bundled/scripts/noConfigScripts', 'XDG_RUNTIME_DIR': '/run/user/1000', 'SSL_CERT_DIR': '/usr/lib/ssl/certs', 'VSCODE_DEBUGPY_ADAPTER_ENDPOINTS': '/home/administrator/.vscode-server/extensions/ms-python.debugpy-2025.4.1/.noConfigDebugAdapterEndpoints/endpoint-8338386ebcead68d.txt', 'LANG': 'en_US.UTF-8', 'RMW_IMPLEMENTATION': 'rmw_fastrtps_cpp', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:', 'VSCODE_GIT_IPC_HANDLE': '/run/user/1000/vscode-git-3cc937a741.sock', 'TERM_PROGRAM': 'vscode', 'ROS_DOMAIN_ID': '0', 'AMENT_PREFIX_PATH': '/home/administrator/code/nav2_plugins/install/vector_pursuit_controller:/home/administrator/code/nav2_plugins/install/nav2_social_costmap_plugin:/home/administrator/code/nav2_plugins/install/nav2_navigan_planner:/home/administrator/code/ros2_msgs/install/people_msgs:/home/administrator/code/ros2_plugin_ws/install/nav2_straightline_planner:/home/administrator/code/ros2_plugin_ws/install/nav2_navigan_planner:/home/administrator/code/ublox_ws/install/ublox_ros2:/home/administrator/code/ublox_ws/install/ublox_msgs:/home/administrator/code/bumblebee_ws/install/bumblebee_wrapper:/opt/ros/humble', 'SHELL': '/bin/bash', 'LESSCLOSE': '/usr/bin/lesspipe %s %s', 'VSCODE_GIT_ASKPASS_EXTRA_ARGS': '', 'PWD': '/home/administrator/nmpc_ws/build/nmpc_pkg', 'SSH_CONNECTION': '196.24.139.40 61987 197.239.170.33 22', 'XDG_DATA_DIRS': '/usr/local/share:/usr/share:/var/lib/snapd/desktop', 'PYTHONPATH': '/home/administrator/nmpc_ws/build/nmpc_pkg/prefix_override:/home/administrator/nmpc_ws/install/nmpc_pkg/lib/python3.10/site-packages:/home/administrator/code/ros2_msgs/install/people_msgs/local/lib/python3.10/dist-packages:/home/administrator/code/ublox_ws/install/ublox_ros2/lib/python3.10/site-packages:/home/administrator/code/ublox_ws/install/ublox_msgs/local/lib/python3.10/dist-packages:/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages', 'COLCON': '1', 'CMAKE_PREFIX_PATH': '/home/administrator/code/ros2_msgs/install:/home/administrator/code/nav2_plugins/install/vector_pursuit_controller:/home/administrator/code/nav2_plugins/install/nav2_social_costmap_plugin:/home/administrator/code/nav2_plugins/install/nav2_navigan_planner:/home/administrator/code/ros2_msgs/install/people_msgs:/home/administrator/code/ros2_plugin_ws/install/nav2_straightline_planner:/home/administrator/code/ros2_plugin_ws/install/nav2_navigan_planner:/home/administrator/code/ublox_ws/install/ublox_msgs:/home/administrator/code/ros2_msgs/install:'}, 'shell': False}
+[1.903251] (-) TimerEvent: {}
+[2.003583] (-) TimerEvent: {}
+[2.104296] (-) TimerEvent: {}
+[2.105461] (aru_navigan) StdoutLine: {'line': b'-- Found MPI_C: /usr/lib/x86_64-linux-gnu/libmpi.so (found version "3.1") \n'}
+[2.105811] (aru_navigan) StdoutLine: {'line': b'-- Found MPI: TRUE (found version "3.1") found components: C \n'}
+[2.110702] (aru_navigan) StdoutLine: {'line': b'-- Found JsonCpp: /usr/lib/x86_64-linux-gnu/libjsoncpp.so (found suitable version "1.9.5", minimum required is "0.7.0") \n'}
+[2.133345] (aru_navigan) StdoutLine: {'line': b'-- Found ZLIB: /usr/lib/x86_64-linux-gnu/libz.so (found version "1.2.11") \n'}
+[2.176002] (aru_navigan) StdoutLine: {'line': b'-- Found PNG: /usr/lib/x86_64-linux-gnu/libpng.so (found version "1.6.37") \n'}
+[2.204367] (-) TimerEvent: {}
+[2.215269] (aru_navigan) StdoutLine: {'line': b'-- Found Eigen3: /usr/include/eigen3 (found version "3.4.0") \n'}
+[2.280644] (nmpc_pkg) StdoutLine: {'line': b'running egg_info\n'}
+[2.281725] (nmpc_pkg) StdoutLine: {'line': b'writing ../../build/nmpc_pkg/nmpc_pkg.egg-info/PKG-INFO\n'}
+[2.282237] (nmpc_pkg) StdoutLine: {'line': b'writing dependency_links to ../../build/nmpc_pkg/nmpc_pkg.egg-info/dependency_links.txt\n'}
+[2.282511] (nmpc_pkg) StdoutLine: {'line': b'writing entry points to ../../build/nmpc_pkg/nmpc_pkg.egg-info/entry_points.txt\n'}
+[2.282725] (nmpc_pkg) StdoutLine: {'line': b'writing requirements to ../../build/nmpc_pkg/nmpc_pkg.egg-info/requires.txt\n'}
+[2.282897] (nmpc_pkg) StdoutLine: {'line': b'writing top-level names to ../../build/nmpc_pkg/nmpc_pkg.egg-info/top_level.txt\n'}
+[2.286224] (nmpc_pkg) StdoutLine: {'line': b"reading manifest file '../../build/nmpc_pkg/nmpc_pkg.egg-info/SOURCES.txt'\n"}
+[2.287424] (nmpc_pkg) StdoutLine: {'line': b"writing manifest file '../../build/nmpc_pkg/nmpc_pkg.egg-info/SOURCES.txt'\n"}
+[2.287673] (nmpc_pkg) StdoutLine: {'line': b'running build\n'}
+[2.287902] (nmpc_pkg) StdoutLine: {'line': b'running build_py\n'}
+[2.288067] (nmpc_pkg) StdoutLine: {'line': b'copying nmpc_pkg/controller_node.py -> /home/administrator/nmpc_ws/build/nmpc_pkg/build/lib/nmpc_pkg\n'}
+[2.288450] (nmpc_pkg) StdoutLine: {'line': b'copying nmpc_pkg/controller_class.py -> /home/administrator/nmpc_ws/build/nmpc_pkg/build/lib/nmpc_pkg\n'}
+[2.288974] (nmpc_pkg) StdoutLine: {'line': b'running install\n'}
+[2.289442] (nmpc_pkg) StdoutLine: {'line': b'running install_lib\n'}
+[2.290556] (nmpc_pkg) StdoutLine: {'line': b'copying /home/administrator/nmpc_ws/build/nmpc_pkg/build/lib/nmpc_pkg/controller_node.py -> /home/administrator/nmpc_ws/install/nmpc_pkg/lib/python3.10/site-packages/nmpc_pkg\n'}
+[2.290830] (nmpc_pkg) StdoutLine: {'line': b'copying /home/administrator/nmpc_ws/build/nmpc_pkg/build/lib/nmpc_pkg/controller_class.py -> /home/administrator/nmpc_ws/install/nmpc_pkg/lib/python3.10/site-packages/nmpc_pkg\n'}
+[2.291503] (nmpc_pkg) StdoutLine: {'line': b'byte-compiling /home/administrator/nmpc_ws/install/nmpc_pkg/lib/python3.10/site-packages/nmpc_pkg/controller_node.py to controller_node.cpython-310.pyc\n'}
+[2.293567] (nmpc_pkg) StdoutLine: {'line': b'byte-compiling /home/administrator/nmpc_ws/install/nmpc_pkg/lib/python3.10/site-packages/nmpc_pkg/controller_class.py to controller_class.cpython-310.pyc\n'}
+[2.294666] (nmpc_pkg) StdoutLine: {'line': b'running install_data\n'}
+[2.295440] (nmpc_pkg) StdoutLine: {'line': b'running install_egg_info\n'}
+[2.297531] (nmpc_pkg) StdoutLine: {'line': b"removing '/home/administrator/nmpc_ws/install/nmpc_pkg/lib/python3.10/site-packages/nmpc_pkg-0.0.0-py3.10.egg-info' (and everything under it)\n"}
+[2.298113] (nmpc_pkg) StdoutLine: {'line': b'Copying ../../build/nmpc_pkg/nmpc_pkg.egg-info to /home/administrator/nmpc_ws/install/nmpc_pkg/lib/python3.10/site-packages/nmpc_pkg-0.0.0-py3.10.egg-info\n'}
+[2.299497] (nmpc_pkg) StdoutLine: {'line': b'running install_scripts\n'}
+[2.304470] (-) TimerEvent: {}
+[2.329097] (nmpc_pkg) StdoutLine: {'line': b'Installing gotostart script to /home/administrator/nmpc_ws/install/nmpc_pkg/lib/nmpc_pkg\n'}
+[2.329601] (nmpc_pkg) StdoutLine: {'line': b'Installing record script to /home/administrator/nmpc_ws/install/nmpc_pkg/lib/nmpc_pkg\n'}
+[2.329939] (nmpc_pkg) StdoutLine: {'line': b"writing list of installed files to '/home/administrator/nmpc_ws/build/nmpc_pkg/install.log'\n"}
+[2.388079] (nmpc_pkg) CommandEnded: {'returncode': 0}
+[2.393597] (aru_navigan) StdoutLine: {'line': b'-- Found X11: /usr/include   \n'}
+[2.394386] (aru_navigan) StdoutLine: {'line': b'-- Looking for XOpenDisplay in /usr/lib/x86_64-linux-gnu/libX11.so;/usr/lib/x86_64-linux-gnu/libXext.so\n'}
+[2.404611] (-) TimerEvent: {}
+[2.484978] (aru_navigan) StdoutLine: {'line': b'-- Looking for XOpenDisplay in /usr/lib/x86_64-linux-gnu/libX11.so;/usr/lib/x86_64-linux-gnu/libXext.so - found\n'}
+[2.485235] (aru_navigan) StdoutLine: {'line': b'-- Looking for gethostbyname\n'}
+[2.493041] (nmpc_pkg) JobEnded: {'identifier': 'nmpc_pkg', 'rc': 0}
+[2.504721] (-) TimerEvent: {}
+[2.578184] (aru_navigan) StdoutLine: {'line': b'-- Looking for gethostbyname - found\n'}
+[2.578639] (aru_navigan) StdoutLine: {'line': b'-- Looking for connect\n'}
+[2.604822] (-) TimerEvent: {}
+[2.664536] (aru_navigan) StdoutLine: {'line': b'-- Looking for connect - found\n'}
+[2.664837] (aru_navigan) StdoutLine: {'line': b'-- Looking for remove\n'}
+[2.704935] (-) TimerEvent: {}
+[2.747124] (aru_navigan) StdoutLine: {'line': b'-- Looking for remove - found\n'}
+[2.747405] (aru_navigan) StdoutLine: {'line': b'-- Looking for shmat\n'}
+[2.805022] (-) TimerEvent: {}
+[2.824074] (aru_navigan) StdoutLine: {'line': b'-- Looking for shmat - found\n'}
+[2.824612] (aru_navigan) StdoutLine: {'line': b'-- Looking for IceConnectionNumber in ICE\n'}
+[2.905140] (-) TimerEvent: {}
+[2.921362] (aru_navigan) StdoutLine: {'line': b'-- Looking for IceConnectionNumber in ICE - found\n'}
+[3.005257] (-) TimerEvent: {}
+[3.026050] (aru_navigan) StdoutLine: {'line': b'-- Found EXPAT: /usr/lib/x86_64-linux-gnu/libexpat.so (found version "2.4.7") \n'}
+[3.028811] (aru_navigan) StdoutLine: {'line': b'-- Found double-conversion: /usr/lib/x86_64-linux-gnu/libdouble-conversion.so  \n'}
+[3.032253] (aru_navigan) StdoutLine: {'line': b'-- Found LZ4: /usr/lib/x86_64-linux-gnu/liblz4.so (found version "1.9.3") \n'}
+[3.034731] (aru_navigan) StdoutLine: {'line': b'-- Found LZMA: /usr/lib/x86_64-linux-gnu/liblzma.so (found version "5.2.5") \n'}
+[3.051349] (aru_navigan) StdoutLine: {'line': b'-- Found JPEG: /usr/lib/x86_64-linux-gnu/libjpeg.so (found version "80") \n'}
+[3.063960] (aru_navigan) StdoutLine: {'line': b'-- Found TIFF: /usr/lib/x86_64-linux-gnu/libtiff.so (found version "4.3.0")  \n'}
+[3.072569] (aru_navigan) StdoutLine: {'line': b'-- Found Freetype: /usr/lib/x86_64-linux-gnu/libfreetype.so (found version "2.11.1") \n'}
+[3.077924] (aru_navigan) StdoutLine: {'line': b'-- Found utf8cpp: /usr/include/utf8cpp  \n'}
+[3.105344] (-) TimerEvent: {}
+[3.166385] (aru_navigan) StdoutLine: {'line': b"-- Checking for module 'libusb-1.0'\n"}
+[3.183479] (aru_navigan) StdoutLine: {'line': b'--   Found libusb-1.0, version 1.0.25\n'}
+[3.205446] (-) TimerEvent: {}
+[3.219312] (aru_navigan) StdoutLine: {'line': b'-- Found libusb: /usr/lib/x86_64-linux-gnu/libusb-1.0.so  \n'}
+[3.220639] (aru_navigan) StdoutLine: {'line': b'-- Found OpenNI: /usr/lib/libOpenNI.so;libusb::libusb (found version "1.5.4.0") \n'}
+[3.220793] (aru_navigan) StdoutLine: {'line': b'-- OpenNI found (version: 1.5.4.0, include: /usr/include/ni, lib: /usr/lib/libOpenNI.so;libusb::libusb)\n'}
+[3.278972] (aru_navigan) StdoutLine: {'line': b'-- Found OpenNI2: /usr/lib/x86_64-linux-gnu/libOpenNI2.so;libusb::libusb (found version "2.2.0.33") \n'}
+[3.279191] (aru_navigan) StdoutLine: {'line': b'-- OpenNI2 found (version: 2.2.0.33, include: /usr/include/openni2, lib: /usr/lib/x86_64-linux-gnu/libOpenNI2.so;libusb::libusb)\n'}
+[3.279471] (aru_navigan) StderrLine: {'line': b'\x1b[0m** WARNING ** io features related to pcap will be disabled\x1b[0m\n'}
+[3.305552] (-) TimerEvent: {}
+[3.405907] (-) TimerEvent: {}
+[3.464220] (aru_navigan) StdoutLine: {'line': b'-- Eigen found (include: /usr/include/eigen3, version: 3.4.0)\n'}
+[3.471777] (aru_navigan) StdoutLine: {'line': b'-- OpenNI found (version: 1.5.4.0, include: /usr/include/ni, lib: /usr/lib/libOpenNI.so;libusb::libusb)\n'}
+[3.479201] (aru_navigan) StdoutLine: {'line': b'-- OpenNI2 found (version: 2.2.0.33, include: /usr/include/openni2, lib: /usr/lib/x86_64-linux-gnu/libOpenNI2.so;libusb::libusb)\n'}
+[3.506007] (-) TimerEvent: {}
+[3.606319] (-) TimerEvent: {}
+[3.657926] (aru_navigan) StdoutLine: {'line': b'-- Found Qhull version 8.0.2\n'}
+[3.706437] (-) TimerEvent: {}
+[3.806725] (-) TimerEvent: {}
+[3.845142] (aru_navigan) StdoutLine: {'line': b'-- OpenNI found (version: 1.5.4.0, include: /usr/include/ni, lib: /usr/lib/libOpenNI.so;libusb::libusb)\n'}
+[3.906843] (-) TimerEvent: {}
+[4.007146] (-) TimerEvent: {}
+[4.020001] (aru_navigan) StdoutLine: {'line': b'-- looking for PCL_COMMON\n'}
+[4.021331] (aru_navigan) StdoutLine: {'line': b'-- Found PCL_COMMON: /usr/lib/x86_64-linux-gnu/libpcl_common.so  \n'}
+[4.021629] (aru_navigan) StdoutLine: {'line': b'-- looking for PCL_KDTREE\n'}
+[4.022721] (aru_navigan) StdoutLine: {'line': b'-- Found PCL_KDTREE: /usr/lib/x86_64-linux-gnu/libpcl_kdtree.so  \n'}
+[4.022959] (aru_navigan) StdoutLine: {'line': b'-- looking for PCL_OCTREE\n'}
+[4.024093] (aru_navigan) StdoutLine: {'line': b'-- Found PCL_OCTREE: /usr/lib/x86_64-linux-gnu/libpcl_octree.so  \n'}
+[4.024324] (aru_navigan) StdoutLine: {'line': b'-- looking for PCL_SEARCH\n'}
+[4.025543] (aru_navigan) StdoutLine: {'line': b'-- Found PCL_SEARCH: /usr/lib/x86_64-linux-gnu/libpcl_search.so  \n'}
+[4.025837] (aru_navigan) StdoutLine: {'line': b'-- looking for PCL_SAMPLE_CONSENSUS\n'}
+[4.027505] (aru_navigan) StdoutLine: {'line': b'-- Found PCL_SAMPLE_CONSENSUS: /usr/lib/x86_64-linux-gnu/libpcl_sample_consensus.so  \n'}
+[4.027795] (aru_navigan) StdoutLine: {'line': b'-- looking for PCL_FILTERS\n'}
+[4.028837] (aru_navigan) StdoutLine: {'line': b'-- Found PCL_FILTERS: /usr/lib/x86_64-linux-gnu/libpcl_filters.so  \n'}
+[4.029176] (aru_navigan) StdoutLine: {'line': b'-- looking for PCL_2D\n'}
+[4.029513] (aru_navigan) StdoutLine: {'line': b'-- Found PCL_2D: /usr/include/pcl-1.12  \n'}
+[4.029806] (aru_navigan) StdoutLine: {'line': b'-- looking for PCL_GEOMETRY\n'}
+[4.030103] (aru_navigan) StdoutLine: {'line': b'-- Found PCL_GEOMETRY: /usr/include/pcl-1.12  \n'}
+[4.030334] (aru_navigan) StdoutLine: {'line': b'-- looking for PCL_IO\n'}
+[4.031425] (aru_navigan) StdoutLine: {'line': b'-- Found PCL_IO: /usr/lib/x86_64-linux-gnu/libpcl_io.so  \n'}
+[4.031771] (aru_navigan) StdoutLine: {'line': b'-- looking for PCL_FEATURES\n'}
+[4.032722] (aru_navigan) StdoutLine: {'line': b'-- Found PCL_FEATURES: /usr/lib/x86_64-linux-gnu/libpcl_features.so  \n'}
+[4.033027] (aru_navigan) StdoutLine: {'line': b'-- looking for PCL_ML\n'}
+[4.033978] (aru_navigan) StdoutLine: {'line': b'-- Found PCL_ML: /usr/lib/x86_64-linux-gnu/libpcl_ml.so  \n'}
+[4.034267] (aru_navigan) StdoutLine: {'line': b'-- looking for PCL_SEGMENTATION\n'}
+[4.035257] (aru_navigan) StdoutLine: {'line': b'-- Found PCL_SEGMENTATION: /usr/lib/x86_64-linux-gnu/libpcl_segmentation.so  \n'}
+[4.035693] (aru_navigan) StdoutLine: {'line': b'-- looking for PCL_VISUALIZATION\n'}
+[4.036658] (aru_navigan) StdoutLine: {'line': b'-- Found PCL_VISUALIZATION: /usr/lib/x86_64-linux-gnu/libpcl_visualization.so  \n'}
+[4.037071] (aru_navigan) StdoutLine: {'line': b'-- looking for PCL_SURFACE\n'}
+[4.038068] (aru_navigan) StdoutLine: {'line': b'-- Found PCL_SURFACE: /usr/lib/x86_64-linux-gnu/libpcl_surface.so  \n'}
+[4.038428] (aru_navigan) StdoutLine: {'line': b'-- looking for PCL_REGISTRATION\n'}
+[4.039431] (aru_navigan) StdoutLine: {'line': b'-- Found PCL_REGISTRATION: /usr/lib/x86_64-linux-gnu/libpcl_registration.so  \n'}
+[4.039820] (aru_navigan) StdoutLine: {'line': b'-- looking for PCL_KEYPOINTS\n'}
+[4.040829] (aru_navigan) StdoutLine: {'line': b'-- Found PCL_KEYPOINTS: /usr/lib/x86_64-linux-gnu/libpcl_keypoints.so  \n'}
+[4.041207] (aru_navigan) StdoutLine: {'line': b'-- looking for PCL_TRACKING\n'}
+[4.042217] (aru_navigan) StdoutLine: {'line': b'-- Found PCL_TRACKING: /usr/lib/x86_64-linux-gnu/libpcl_tracking.so  \n'}
+[4.042534] (aru_navigan) StdoutLine: {'line': b'-- looking for PCL_RECOGNITION\n'}
+[4.043527] (aru_navigan) StdoutLine: {'line': b'-- Found PCL_RECOGNITION: /usr/lib/x86_64-linux-gnu/libpcl_recognition.so  \n'}
+[4.043940] (aru_navigan) StdoutLine: {'line': b'-- looking for PCL_STEREO\n'}
+[4.044846] (aru_navigan) StdoutLine: {'line': b'-- Found PCL_STEREO: /usr/lib/x86_64-linux-gnu/libpcl_stereo.so  \n'}
+[4.045070] (aru_navigan) StdoutLine: {'line': b'-- looking for PCL_APPS\n'}
+[4.045975] (aru_navigan) StdoutLine: {'line': b'-- Found PCL_APPS: /usr/lib/x86_64-linux-gnu/libpcl_apps.so  \n'}
+[4.046667] (aru_navigan) StdoutLine: {'line': b'-- looking for PCL_IN_HAND_SCANNER\n'}
+[4.046987] (aru_navigan) StdoutLine: {'line': b'-- Found PCL_IN_HAND_SCANNER: /usr/include/pcl-1.12  \n'}
+[4.047151] (aru_navigan) StdoutLine: {'line': b'-- looking for PCL_MODELER\n'}
+[4.047472] (aru_navigan) StdoutLine: {'line': b'-- Found PCL_MODELER: /usr/include/pcl-1.12  \n'}
+[4.047666] (aru_navigan) StdoutLine: {'line': b'-- looking for PCL_POINT_CLOUD_EDITOR\n'}
+[4.048181] (aru_navigan) StdoutLine: {'line': b'-- Found PCL_POINT_CLOUD_EDITOR: /usr/include/pcl-1.12  \n'}
+[4.048385] (aru_navigan) StdoutLine: {'line': b'-- looking for PCL_OUTOFCORE\n'}
+[4.049435] (aru_navigan) StdoutLine: {'line': b'-- Found PCL_OUTOFCORE: /usr/lib/x86_64-linux-gnu/libpcl_outofcore.so  \n'}
+[4.049834] (aru_navigan) StdoutLine: {'line': b'-- looking for PCL_PEOPLE\n'}
+[4.050895] (aru_navigan) StdoutLine: {'line': b'-- Found PCL_PEOPLE: /usr/lib/x86_64-linux-gnu/libpcl_people.so  \n'}
+[4.051962] (aru_navigan) StdoutLine: {'line': b'-- Found PCL: pcl_common;pcl_kdtree;pcl_octree;pcl_search;pcl_sample_consensus;pcl_filters;pcl_io;pcl_features;pcl_ml;pcl_segmentation;pcl_visualization;pcl_surface;pcl_registration;pcl_keypoints;pcl_tracking;pcl_recognition;pcl_stereo;pcl_apps;pcl_outofcore;pcl_people;Boost::system;Boost::filesystem;Boost::date_time;Boost::iostreams;Boost::serialization;/usr/lib/libOpenNI.so;libusb::libusb;/usr/lib/x86_64-linux-gnu/libOpenNI2.so;libusb::libusb;VTK::ChartsCore;VTK::CommonColor;VTK::CommonComputationalGeometry;VTK::CommonCore;VTK::CommonDataModel;VTK::CommonExecutionModel;VTK::CommonMath;VTK::CommonMisc;VTK::CommonTransforms;VTK::FiltersCore;VTK::FiltersExtraction;VTK::FiltersGeneral;VTK::FiltersGeometry;VTK::FiltersModeling;VTK::FiltersSources;VTK::ImagingCore;VTK::ImagingSources;VTK::InteractionImage;VTK::InteractionStyle;VTK::InteractionWidgets;VTK::IOCore;VTK::IOGeometry;VTK::IOImage;VTK::IOLegacy;VTK::IOPLY;VTK::RenderingAnnotation;VTK::RenderingCore;VTK::RenderingContext2D;VTK::RenderingLOD;VTK::RenderingFreeType;VTK::ViewsCore;VTK::ViewsContext2D;VTK::RenderingOpenGL2;VTK::GUISupportQt;FLANN::FLANN;QHULL::QHULL  \n'}
+[4.057934] (aru_navigan) StdoutLine: {'line': b'-- Found pcl_conversions: 2.4.5 (/opt/ros/humble/share/pcl_conversions/cmake)\n'}
+[4.107259] (-) TimerEvent: {}
+[4.207557] (-) TimerEvent: {}
+[4.273025] (aru_navigan) StdoutLine: {'line': b'-- Found Python3: /usr/bin/python3.10 (found version "3.10.12") found components: Interpreter \n'}
+[4.307650] (-) TimerEvent: {}
+[4.407955] (-) TimerEvent: {}
+[4.508264] (-) TimerEvent: {}
+[4.526210] (aru_navigan) StdoutLine: {'line': b'-- Found rosidl_generator_c: 3.1.5 (/opt/ros/humble/share/rosidl_generator_c/cmake)\n'}
+[4.537372] (aru_navigan) StdoutLine: {'line': b'-- Found rosidl_adapter: 3.1.5 (/opt/ros/humble/share/rosidl_adapter/cmake)\n'}
+[4.555167] (aru_navigan) StdoutLine: {'line': b'-- Found rosidl_generator_cpp: 3.1.5 (/opt/ros/humble/share/rosidl_generator_cpp/cmake)\n'}
+[4.583768] (aru_navigan) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c\n'}
+[4.608346] (-) TimerEvent: {}
+[4.619664] (aru_navigan) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp\n'}
+[4.708447] (-) TimerEvent: {}
+[4.746457] (aru_navigan) StdoutLine: {'line': b'-- Found rmw_implementation_cmake: 6.1.1 (/opt/ros/humble/share/rmw_implementation_cmake/cmake)\n'}
+[4.753105] (aru_navigan) StdoutLine: {'line': b'-- Found rmw_fastrtps_cpp: 6.2.5 (/opt/ros/humble/share/rmw_fastrtps_cpp/cmake)\n'}
+[4.808543] (-) TimerEvent: {}
+[4.899500] (aru_navigan) StdoutLine: {'line': b'-- Found OpenSSL: /usr/lib/x86_64-linux-gnu/libcrypto.so (found version "3.0.2")  \n'}
+[4.908632] (-) TimerEvent: {}
+[4.937426] (aru_navigan) StdoutLine: {'line': b'-- Found FastRTPS: /opt/ros/humble/include  \n'}
+[5.001417] (aru_navigan) StdoutLine: {'line': b"-- Using RMW implementation 'rmw_fastrtps_cpp' as default\n"}
+[5.008705] (-) TimerEvent: {}
+[5.108969] (-) TimerEvent: {}
+[5.209240] (-) TimerEvent: {}
+[5.309557] (-) TimerEvent: {}
+[5.409892] (-) TimerEvent: {}
+[5.510177] (-) TimerEvent: {}
+[5.610507] (-) TimerEvent: {}
+[5.655745] (aru_navigan) StdoutLine: {'line': b'-- Found rclcpp_components: 16.0.7 (/opt/ros/humble/share/rclcpp_components/cmake)\n'}
+[5.710611] (-) TimerEvent: {}
+[5.755150] (aru_navigan) StdoutLine: {'line': b'-- Found nav2_core: 1.1.15 (/opt/ros/humble/share/nav2_core/cmake)\n'}
+[5.810714] (-) TimerEvent: {}
+[5.911020] (-) TimerEvent: {}
+[6.011334] (-) TimerEvent: {}
+[6.111615] (-) TimerEvent: {}
+[6.211915] (-) TimerEvent: {}
+[6.312188] (-) TimerEvent: {}
+[6.412447] (-) TimerEvent: {}
+[6.512726] (-) TimerEvent: {}
+[6.613001] (-) TimerEvent: {}
+[6.713312] (-) TimerEvent: {}
+[6.813630] (-) TimerEvent: {}
+[6.880842] (aru_navigan) StdoutLine: {'line': b'-- Found Eigen3: TRUE (found version "3.4.0") \n'}
+[6.881144] (aru_navigan) StdoutLine: {'line': b'-- Ensuring Eigen3 include directory is part of orocos-kdl CMake target\n'}
+[6.913725] (-) TimerEvent: {}
+[7.013986] (-) TimerEvent: {}
+[7.114350] (-) TimerEvent: {}
+[7.214719] (-) TimerEvent: {}
+[7.315099] (-) TimerEvent: {}
+[7.415456] (-) TimerEvent: {}
+[7.515830] (-) TimerEvent: {}
+[7.616175] (-) TimerEvent: {}
+[7.716523] (-) TimerEvent: {}
+[7.816830] (-) TimerEvent: {}
+[7.917117] (-) TimerEvent: {}
+[8.017406] (-) TimerEvent: {}
+[8.117689] (-) TimerEvent: {}
+[8.217985] (-) TimerEvent: {}
+[8.318289] (-) TimerEvent: {}
+[8.418648] (-) TimerEvent: {}
+[8.518957] (-) TimerEvent: {}
+[8.619269] (-) TimerEvent: {}
+[8.719570] (-) TimerEvent: {}
+[8.819892] (-) TimerEvent: {}
+[8.908591] (aru_navigan) StdoutLine: {'line': b'-- Found nav2_common: 1.1.14 (/opt/ros/humble/share/nav2_common/cmake)\n'}
+[8.911571] (aru_navigan) StdoutLine: {'line': b'-- Found people_msgs: 1.3.0 (/home/administrator/code/ros2_msgs/install/people_msgs/share/people_msgs/cmake)\n'}
+[8.919966] (-) TimerEvent: {}
+[9.020252] (-) TimerEvent: {}
+[9.035470] (aru_navigan) StdoutLine: {'line': b'-- Found Protobuf: /usr/local/lib/libprotobuf.so (found version "3.14.0") \n'}
+[9.120363] (-) TimerEvent: {}
+[9.220736] (-) TimerEvent: {}
+[9.321139] (-) TimerEvent: {}
+[9.421466] (-) TimerEvent: {}
+[9.521853] (-) TimerEvent: {}
+[9.622190] (-) TimerEvent: {}
+[9.722531] (-) TimerEvent: {}
+[9.822819] (-) TimerEvent: {}
+[9.923148] (-) TimerEvent: {}
+[10.023514] (-) TimerEvent: {}
+[10.123842] (-) TimerEvent: {}
+[10.224166] (-) TimerEvent: {}
+[10.324522] (-) TimerEvent: {}
+[10.424887] (-) TimerEvent: {}
+[10.525204] (-) TimerEvent: {}
+[10.625523] (-) TimerEvent: {}
+[10.725849] (-) TimerEvent: {}
+[10.826166] (-) TimerEvent: {}
+[10.926495] (-) TimerEvent: {}
+[11.026831] (-) TimerEvent: {}
+[11.127121] (-) TimerEvent: {}
+[11.227427] (-) TimerEvent: {}
+[11.327734] (-) TimerEvent: {}
+[11.428079] (-) TimerEvent: {}
+[11.528419] (-) TimerEvent: {}
+[11.628719] (-) TimerEvent: {}
+[11.729006] (-) TimerEvent: {}
+[11.829293] (-) TimerEvent: {}
+[11.929589] (-) TimerEvent: {}
+[12.029893] (-) TimerEvent: {}
+[12.130249] (-) TimerEvent: {}
+[12.230626] (-) TimerEvent: {}
+[12.331049] (-) TimerEvent: {}
+[12.431539] (-) TimerEvent: {}
+[12.532036] (-) TimerEvent: {}
+[12.632430] (-) TimerEvent: {}
+[12.732857] (-) TimerEvent: {}
+[12.833207] (-) TimerEvent: {}
+[12.933559] (-) TimerEvent: {}
+[13.033884] (-) TimerEvent: {}
+[13.080628] (aru_navigan) StdoutLine: {'line': b'-- Configuring done\n'}
+[13.134002] (-) TimerEvent: {}
+[13.235205] (-) TimerEvent: {}
+[13.241326] (aru_navigan) StdoutLine: {'line': b'-- Generating done\n'}
+[13.244994] (aru_navigan) StdoutLine: {'line': b'-- Build files have been written to: /home/administrator/nmpc_ws/build/aru_navigan\n'}
+[13.270328] (aru_navigan) CommandEnded: {'returncode': 0}
+[13.271341] (aru_navigan) JobProgress: {'identifier': 'aru_navigan', 'progress': 'build'}
+[13.272335] (aru_navigan) Command: {'cmd': ['/usr/bin/cmake', '--build', '/home/administrator/nmpc_ws/build/aru_navigan', '--', '-j4', '-l4'], 'cwd': '/home/administrator/nmpc_ws/build/aru_navigan', 'env': OrderedDict([('LESSOPEN', '| /usr/bin/lesspipe %s'), ('USER', 'administrator'), ('SSH_CLIENT', '196.24.139.40 61987 22'), ('XDG_SESSION_TYPE', 'tty'), ('GIT_ASKPASS', '/home/administrator/.vscode-server/cli/servers/Stable-ddc367ed5c8936efe395cffeec279b04ffd7db78/server/extensions/git/dist/askpass.sh'), ('SHLVL', '2'), ('LD_LIBRARY_PATH', '/home/administrator/code/ros2_msgs/install/people_msgs/lib:/home/administrator/code/nav2_plugins/install/vector_pursuit_controller/lib:/home/administrator/code/nav2_plugins/install/nav2_social_costmap_plugin/lib:/home/administrator/code/nav2_plugins/install/nav2_navigan_planner/lib:/home/administrator/code/ros2_plugin_ws/install/nav2_straightline_planner/lib:/home/administrator/code/ublox_ws/install/ublox_msgs/lib:/usr/lib/x86_64-linux-gnu/gazebo-11/plugins:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib:/home/administrator/code/ros2_msgs/install/people_msgs/lib:'), ('BROWSER', '/home/administrator/.vscode-server/cli/servers/Stable-ddc367ed5c8936efe395cffeec279b04ffd7db78/server/bin/helpers/browser.sh'), ('MOTD_SHOWN', 'pam'), ('HOME', '/home/administrator'), ('OLDPWD', '/home/administrator/nmpc_ws/src'), ('TERM_PROGRAM_VERSION', '1.98.2'), ('VSCODE_IPC_HOOK_CLI', '/run/user/1000/vscode-ipc-fdef6a25-8c35-4221-818f-6a26dcbac6bf.sock'), ('ROS_PYTHON_VERSION', '3'), ('VSCODE_GIT_ASKPASS_MAIN', '/home/administrator/.vscode-server/cli/servers/Stable-ddc367ed5c8936efe395cffeec279b04ffd7db78/server/extensions/git/dist/askpass-main.js'), ('VSCODE_GIT_ASKPASS_NODE', '/home/administrator/.vscode-server/cli/servers/Stable-ddc367ed5c8936efe395cffeec279b04ffd7db78/server/node'), ('SSL_CERT_FILE', '/usr/lib/ssl/certs/ca-certificates.crt'), ('PYDEVD_DISABLE_FILE_VALIDATION', '1'), ('BUNDLED_DEBUGPY_PATH', '/home/administrator/.vscode-server/extensions/ms-python.debugpy-2025.4.1/bundled/libs/debugpy'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('COLORTERM', 'truecolor'), ('COLCON_PREFIX_PATH', '/home/administrator/code/nav2_plugins/install:/home/administrator/code/ros2_msgs/install:/home/administrator/code/zed_ws/install:/home/administrator/code/ros2_plugin_ws/install:/home/administrator/code/ublox_ws/install'), ('ROS_DISTRO', 'humble'), ('LOGNAME', 'administrator'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('XDG_SESSION_CLASS', 'user'), ('TERM', 'xterm-256color'), ('XDG_SESSION_ID', '1'), ('ROS_LOCALHOST_ONLY', '0'), ('PATH', '/home/administrator/.vscode-server/cli/servers/Stable-ddc367ed5c8936efe395cffeec279b04ffd7db78/server/bin/remote-cli:/opt/ros/humble/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/home/administrator/.vscode-server/extensions/ms-python.debugpy-2025.4.1/bundled/scripts/noConfigScripts'), ('XDG_RUNTIME_DIR', '/run/user/1000'), ('SSL_CERT_DIR', '/usr/lib/ssl/certs'), ('VSCODE_DEBUGPY_ADAPTER_ENDPOINTS', '/home/administrator/.vscode-server/extensions/ms-python.debugpy-2025.4.1/.noConfigDebugAdapterEndpoints/endpoint-8338386ebcead68d.txt'), ('LANG', 'en_US.UTF-8'), ('RMW_IMPLEMENTATION', 'rmw_fastrtps_cpp'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('VSCODE_GIT_IPC_HANDLE', '/run/user/1000/vscode-git-3cc937a741.sock'), ('TERM_PROGRAM', 'vscode'), ('ROS_DOMAIN_ID', '0'), ('AMENT_PREFIX_PATH', '/home/administrator/code/nav2_plugins/install/vector_pursuit_controller:/home/administrator/code/nav2_plugins/install/nav2_social_costmap_plugin:/home/administrator/code/nav2_plugins/install/nav2_navigan_planner:/home/administrator/code/ros2_msgs/install/people_msgs:/home/administrator/code/ros2_plugin_ws/install/nav2_straightline_planner:/home/administrator/code/ros2_plugin_ws/install/nav2_navigan_planner:/home/administrator/code/ublox_ws/install/ublox_ros2:/home/administrator/code/ublox_ws/install/ublox_msgs:/home/administrator/code/bumblebee_ws/install/bumblebee_wrapper:/opt/ros/humble'), ('SHELL', '/bin/bash'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('VSCODE_GIT_ASKPASS_EXTRA_ARGS', ''), ('PWD', '/home/administrator/nmpc_ws/build/aru_navigan'), ('SSH_CONNECTION', '196.24.139.40 61987 197.239.170.33 22'), ('XDG_DATA_DIRS', '/usr/local/share:/usr/share:/var/lib/snapd/desktop'), ('PYTHONPATH', '/home/administrator/code/ros2_msgs/install/people_msgs/local/lib/python3.10/dist-packages:/home/administrator/code/ublox_ws/install/ublox_ros2/lib/python3.10/site-packages:/home/administrator/code/ublox_ws/install/ublox_msgs/local/lib/python3.10/dist-packages:/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages'), ('COLCON', '1'), ('CMAKE_PREFIX_PATH', '/home/administrator/code/ros2_msgs/install:/home/administrator/code/nav2_plugins/install/vector_pursuit_controller:/home/administrator/code/nav2_plugins/install/nav2_social_costmap_plugin:/home/administrator/code/nav2_plugins/install/nav2_navigan_planner:/home/administrator/code/ros2_msgs/install/people_msgs:/home/administrator/code/ros2_plugin_ws/install/nav2_straightline_planner:/home/administrator/code/ros2_plugin_ws/install/nav2_navigan_planner:/home/administrator/code/ublox_ws/install/ublox_msgs:/home/administrator/code/ros2_msgs/install::/home/administrator/code/ublox_ws/install/ublox_ros2:/home/administrator/code/bumblebee_ws/install/bumblebee_wrapper:/opt/ros/humble')]), 'shell': False}
+[13.335325] (-) TimerEvent: {}
+[13.357745] (aru_navigan) StdoutLine: {'line': b'[ 50%] \x1b[32mBuilding CXX object CMakeFiles/velodyne_node.dir/nodes/velodyne_node.cpp.o\x1b[0m\n'}
+[13.435442] (-) TimerEvent: {}
+[13.535729] (-) TimerEvent: {}
+[13.636071] (-) TimerEvent: {}
+[13.736393] (-) TimerEvent: {}
+[13.836723] (-) TimerEvent: {}
+[13.937106] (-) TimerEvent: {}
+[13.978470] (aru_navigan) StderrLine: {'line': b'\x1b[01m\x1b[K/home/administrator/nmpc_ws/src/navigan/nodes/velodyne_node.cpp:5:10:\x1b[m\x1b[K \x1b[01;31m\x1b[Kfatal error: \x1b[m\x1b[K/home/orin/aru_sil_core/navigation/pedestrian/include/aru/core/pedestrian/pedestrian.h: No such file or directory\n'}
+[13.978745] (aru_navigan) StderrLine: {'line': b'    5 | #include \x1b[01;31m\x1b[K"/home/orin/aru_sil_core/navigation/pedestrian/include/aru/core/pedestrian/pedestrian.h"\x1b[m\x1b[K\n'}
+[13.978927] (aru_navigan) StderrLine: {'line': b'      |          \x1b[01;31m\x1b[K^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\x1b[m\x1b[K\n'}
+[13.979079] (aru_navigan) StderrLine: {'line': b'compilation terminated.\n'}
+[13.983445] (aru_navigan) StderrLine: {'line': b'gmake[2]: *** [CMakeFiles/velodyne_node.dir/build.make:76: CMakeFiles/velodyne_node.dir/nodes/velodyne_node.cpp.o] Error 1\n'}
+[13.983837] (aru_navigan) StderrLine: {'line': b'gmake[1]: *** [CMakeFiles/Makefile2:137: CMakeFiles/velodyne_node.dir/all] Error 2\n'}
+[13.984026] (aru_navigan) StderrLine: {'line': b'gmake: *** [Makefile:146: all] Error 2\n'}
+[13.986622] (aru_navigan) CommandEnded: {'returncode': 2}
+[14.037245] (-) TimerEvent: {}
+[14.081724] (aru_navigan) JobEnded: {'identifier': 'aru_navigan', 'rc': 2}
+[14.092496] (-) EventReactorShutdown: {}

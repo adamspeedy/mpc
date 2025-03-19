@@ -1,0 +1,8 @@
+[0m** WARNING ** io features related to pcap will be disabled[0m
+[01m[K/home/administrator/nmpc_ws/src/navigan/nodes/velodyne_node.cpp:5:10:[m[K [01;31m[Kfatal error: [m[K/home/orin/aru_sil_core/navigation/pedestrian/include/aru/core/pedestrian/pedestrian.h: No such file or directory
+    5 | #include [01;31m[K"/home/orin/aru_sil_core/navigation/pedestrian/include/aru/core/pedestrian/pedestrian.h"[m[K
+      |          [01;31m[K^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[m[K
+compilation terminated.
+gmake[2]: *** [CMakeFiles/velodyne_node.dir/build.make:76: CMakeFiles/velodyne_node.dir/nodes/velodyne_node.cpp.o] Error 1
+gmake[1]: *** [CMakeFiles/Makefile2:137: CMakeFiles/velodyne_node.dir/all] Error 2
+gmake: *** [Makefile:146: all] Error 2

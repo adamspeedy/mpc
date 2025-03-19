@@ -20,7 +20,8 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-           'record = nmpc_pkg.record:main'
+           'record = nmpc_pkg.record:main',
+           'gotostart = nmpc_pkg.gotostart:main'
         ],
     },
 )

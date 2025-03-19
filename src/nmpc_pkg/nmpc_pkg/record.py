@@ -37,7 +37,7 @@ def record_trajectory():
     node = Node('trajectory_recorder')
 
     # Subscribe to the filtered odometry topic
-    node.create_subscription(Odometry, '/a200_0656/platform/odom/filtered', odom_callback, 10)
+    node.create_subscription(Odometry, '/zed/zed_node/odom', odom_callback, 10)
 
     # Create folder for CSV file storage
     folder_path = os.path.join(os.path.expanduser('~'), 'nmpc_ws', 'data', 'trajectories')
