@@ -30,7 +30,7 @@ class Goto_Start(Node):
         # Configuration parameters
         self.declare_parameter('max_linear_speed', 0.2)
         self.declare_parameter('max_angular_speed', 0.2)
-        self.declare_parameter('position_tolerance', 0.05)
+        self.declare_parameter('position_tolerance', 0.01)
         self.declare_parameter('angle_tolerance', 0.05)
 
         self.max_linear_speed = self.get_parameter('max_linear_speed').value

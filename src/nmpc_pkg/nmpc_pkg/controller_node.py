@@ -12,19 +12,21 @@ from .controller_class import Controller
 
 class NMPCNode(Node):
     PLOTTER_ADDRESS = ('196.24.139.40', 12345)     #hardcoded ip address for external plotter
-    N = 20                                          #prediction horizon
+    N = 15                                          #prediction horizon
     PATH_TYPE = 'repeat'                            #path-following behaviour options: 'stop' or 'repeat'
 
     def __init__(self):
         super().__init__('nmpc_controller_node')
 
-        self._init_parameters
-        self._init_state_variables
-        self._init_communication
-        self._init_controller
+        self._init_parameters()
+        self._init_state_variables()
+        self._init_communication()
+        self._init_controller()
         
     def _init_parameters(self):
         #load parameters
+        self.get_logger().info("Loading parameters...")
+
         self.declare_parameter('rate', 10)
         self.declare_parameter('trajectory_file', '/home/administrator/nmpc_ws/data/trajectories/recorded_odometry.csv')
         self.declare_parameter('min_v', -1.0)
@@ -38,6 +40,7 @@ class NMPCNode(Node):
 
     def _init_state_variables(self):
         #initialise state variables
+        
         self.current_state = None
 
         #initialise previous control
@@ -51,8 +54,8 @@ class NMPCNode(Node):
           
     def _init_communication(self):
         #initialise ROS publishers and subscribers
-        self.cmd_vel_pub = self.create_publisher(Twist, 'cmd_vel', 10)
-        self.odom_sub = self.create_subscription(Odometry, 'odometry', self.odom_callback, 10)
+        self.cmd_vel_pub = self.create_publisher(Twist, '/a200_0656/twist_marker_server/cmd_vel', 10)
+        self.odom_sub = self.create_subscription(Odometry, '/zed/zed_node/odom', self.odom_callback, 10)
 
         #wait for initial position
         self.initial_position_received = False
@@ -97,6 +100,9 @@ class NMPCNode(Node):
         #extract current position
         self.x_position = msg.pose.pose.position.x
         self.y_position = msg.pose.pose.position.y
+
+        if self.x_position == 0.0 and self.y_position == 0.0:
+            return
         
         #extract current orientation and convert to euler angles
         orientation_q = msg.pose.pose.orientation
@@ -201,6 +207,8 @@ class NMPCNode(Node):
 
     def control_loop(self):
     #control loop runs periodically
+        self.get_logger().info(f"Control loop running.")
+    
         if not self.odom_received:
             #wait for odometry data
             self.get_logger().info('Waiting for initial odometry data...')
@@ -236,6 +244,7 @@ class NMPCNode(Node):
             cmd_vel_msg.linear.x = float(self.optimal_control[0])
             cmd_vel_msg.angular.z = float(self.optimal_control[1])
     
+        print("v = ", self.optimal_control[0], " and w = ", self.optimal_control[1])
         self.cmd_vel_pub.publish(cmd_vel_msg)
 
         #send trajectory data for plotting
@@ -247,15 +256,18 @@ def destroy_node(self):
         super().destroy_node()
 
 def main(args=None):
-#main function to initialise ROS2 and spin node
     rclpy.init(args=args)
-    nmpc_node = NMPCNode()
+    node = NMPCNode()
     try:
-        rclpy.spin(nmpc_node)
+        rclpy.spin(node)
     except KeyboardInterrupt:
         pass
-    nmpc_node.destroy_node()
-    rclpy.shutdown()
+    finally:
+        node.socket.close()
+        node.destroy_node()
+        # Only call shutdown once
+        rclpy.shutdown()
+
 
 if __name__ == '__main__':
     main()

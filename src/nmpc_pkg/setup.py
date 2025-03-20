@@ -22,7 +22,7 @@ setup(
         'console_scripts': [
            'record = nmpc_pkg.record:main',
            'gotostart = nmpc_pkg.gotostart:main',
-           'controller = nmpc_pkg.controller_node:main'
+           'nmpc_controller_node = nmpc_pkg.controller_node:main'
         ],
     },
 )

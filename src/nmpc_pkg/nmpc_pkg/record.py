@@ -10,6 +10,12 @@ import matplotlib.pyplot as plt
 current_x = 0.0
 current_y = 0.0
 current_theta = 0.0
+prev_x = 0.0
+prev_y = 0.0
+prev_theta = 0.0
+offset_x = 0.0
+offset_y = 0.0
+offset_theta = 0.0
 trajectory_data = []
 
 def euler_from_quaternion(quaternion):
@@ -26,11 +32,33 @@ def euler_from_quaternion(quaternion):
 
 def odom_callback(msg):
     global current_x, current_y, current_theta, trajectory_data
+    global prev_x, prev_y, prev_theta
+    global offset_x, offset_y, offset_theta
+
     current_x = msg.pose.pose.position.x
     current_y = msg.pose.pose.position.y
-    orientation_q = msg.pose.pose.orientation
-    _, _, current_theta = euler_from_quaternion([orientation_q.x, orientation_q.y, orientation_q.z, orientation_q.w])
-    trajectory_data.append((current_x, current_y, current_theta))
+    _, _, current_theta = euler_from_quaternion([msg.pose.pose.orientation.x, 
+                                                 msg.pose.pose.orientation.y, 
+                                                 msg.pose.pose.orientation.z, 
+                                                 msg.pose.pose.orientation.w])
+    
+    if current_x == 0 and current_y == 0 and current_theta == 0:
+        offset_x = prev_x
+        offset_y = prev_y
+        offset_theta = prev_theta
+
+        print("Offset: ", offset_x, offset_y, offset_theta)
+
+    x = current_x + offset_x
+    y = current_y + offset_y
+    theta = current_theta + offset_theta
+    
+    trajectory_data.append((x, y, theta))
+
+    prev_x = current_x
+    prev_y = current_y
+    prev_theta = current_theta
+
 
 def record_trajectory():
     rclpy.init()
