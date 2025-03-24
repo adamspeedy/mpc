@@ -9,13 +9,13 @@ class Controller:
         self.T = T
 
         #horizon length
-        self.N = 15
+        self.N = 20
 
         #cost function weight matrices
-        self.Q = np.diag([10, 10, 10])
-        self.R = np.diag([1, 1])
+        self.Q = np.diag([100, 100, 50])
+        self.R = np.diag([10, 10])
 
-        #best setting: N=15, Q=10,10,10 R=1,1 
+        #best setting: N=20, Q=100,100,50 R=10,10 
 
         #linear and angular velocity constraints
         self.min_v = min_v

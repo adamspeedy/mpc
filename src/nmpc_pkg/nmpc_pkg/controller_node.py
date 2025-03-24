@@ -132,20 +132,35 @@ class NMPCNode(Node):
 
         return roll, pitch, yaw
 
-    def find_closest_point(self, current_position):
-        #calculate distances from current position to all points in reference trajectory
-        distances = np.linalg.norm(self.reference_trajectory[:, :2] - current_position[:2], axis=1)
+    def find_closest_point_index(self, current_state):
+        #extract the position and yaw from the current state
+        pos = current_state[:2]
+        yaw = current_state[2]
+
+        #euclidean distances to each reference point
+        distances = np.linalg.norm(self.reference_trajectory[:, :2] - pos, axis=1)
     
-        #find index of closest point
-        closest_index = np.argmin(distances)
+        #unwrap reference orientations to avoid discontinuities
+        ref_angles = np.unwrap(self.reference_trajectory[:, 2])
     
-        return closest_index
+        #orientation difference
+        angle_diffs = np.abs(np.arctan2(np.sin(ref_angles - yaw), np.cos(ref_angles - yaw)))
+    
+        #weight to balance distance and orientation difference
+        weight = 0.2
+    
+        #combined cost
+        cost = distances + weight * angle_diffs
+    
+        #return index
+        return np.argmin(cost)
+
 
     def reference_trajectory_N(self):
     #function to retrieve next N steps of the reference trajectory
 
         #get index of closest point
-        closest_index = self.find_closest_point(self.current_state)
+        closest_index = self.find_closest_point_index(self.current_state)
 
         N = self.controller.N
         total_points = len(self.reference_trajectory)
@@ -168,13 +183,17 @@ class NMPCNode(Node):
 
     def send_data(self):
     #function to send trajectory data to external plotter
+
+        closest_index = self.find_closest_point_index(self.current_state)
+        closest_point = self.reference_trajectory[closest_index]
+
         trajectory_data ={
             'actual_x' : float(self.current_state[0]),
             'actual_y' : float(self.current_state[1]),
             'forecast_x': self.controller.next_states[:, 0].tolist() if hasattr(self.controller, 'next_states') else [],
             'forecast_y': self.controller.next_states[:, 1].tolist() if hasattr(self.controller, 'next_states') else [], 
-            'v' : float(self.optimal_control[0]),
-            'w' : float(self.optimal_control[1]),
+            'closest_x' : float(closest_point[0]),
+            'closest_y' : float(closest_point[1]),
             'optimisation_time' : float(self.time_taken)
         }
 
@@ -236,7 +255,7 @@ class NMPCNode(Node):
                 cmd_vel_msg.angular.z = 0.0
             else:
                 #apply optimal control inputs
-                cmd_vel_msg.linear.x = -float(self.optimal_control[0])
+                cmd_vel_msg.linear.x = float(self.optimal_control[0])
                 cmd_vel_msg.angular.z = float(self.optimal_control[1])
     
             self.cmd_vel_pub.publish(cmd_vel_msg)
