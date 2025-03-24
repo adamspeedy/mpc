@@ -12,7 +12,6 @@ from .controller_class import Controller
 
 class NMPCNode(Node):
     PLOTTER_ADDRESS = ('196.24.139.40', 12345)     #hardcoded ip address for external plotter
-    N = 15                                          #prediction horizon
     PATH_TYPE = 'repeat'                            #path-following behaviour options: 'stop' or 'repeat'
 
     def __init__(self):
@@ -40,13 +39,12 @@ class NMPCNode(Node):
 
     def _init_state_variables(self):
         #initialise state variables
-        
         self.current_state = None
 
         #initialise previous control
         self.previous_control = np.zeros(2)
         
-        #initialize data storage for robot trajectory
+        #initialise data storage for robot trajectory
         self.actual_trajectory = []
         
         #load reference trajectory from csv file
@@ -74,8 +72,8 @@ class NMPCNode(Node):
         max_w = self.get_parameter('max_w').value
         
         #initialise nmpc controller with initial position and parameters
-        self.controller = Controller(min_v, max_v, min_w, max_w, T=1.0/self.rate, N=self.N)
-        self.trajectory_index = 0
+        self.controller = Controller(min_v, max_v, min_w, max_w, T=1.0/self.rate)
+        self.trajectory_index = None
         
         #timer for control loop
         self.timer = self.create_timer(1.0/self.rate, self.control_loop)
@@ -134,42 +132,37 @@ class NMPCNode(Node):
 
         return roll, pitch, yaw
 
+    def find_closest_point(self, current_position):
+        #calculate distances from current position to all points in reference trajectory
+        distances = np.linalg.norm(self.reference_trajectory[:, :2] - current_position[:2], axis=1)
+    
+        #find index of closest point
+        closest_index = np.argmin(distances)
+    
+        return closest_index
+
     def reference_trajectory_N(self):
     #function to retrieve next N steps of the reference trajectory
+
+        #get index of closest point
+        closest_index = self.find_closest_point(self.current_state)
+
         N = self.controller.N
-        remaining_points = len(self.reference_trajectory) - self.trajectory_index
+        total_points = len(self.reference_trajectory)
         
-        #check if there are enough points for a full prediction horizon
-        if remaining_points >= N + 1:
-            ref_traj = self.reference_trajectory[self.trajectory_index:self.trajectory_index+N+1]
-        else:
-            if self.path_type == 'repeat':
-                #loop back to start of reference trajectory
-                ref_traj = np.vstack((
-                    self.reference_trajectory[self.trajectory_index:],
-                    self.reference_trajectory[:N+1-remaining_points]
-                ))
-            else:
-                #pad trajectory with the last point
-                ref_traj = np.vstack((
-                    self.reference_trajectory[self.trajectory_index:],
-                    np.tile(self.reference_trajectory[-1], (N+1-remaining_points, 1))
-                ))
+        #create an array to hold N+1 points
+        ref_traj = np.zeros((N+1, 3))
+        
+        for i in range(N+1):
+            index = (closest_index + i) % total_points
+            ref_traj[i] = self.reference_trajectory[index]
 
         #unwrap angles in reference trajectory
         ref_traj[:, 2] = np.unwrap(ref_traj[:, 2])
         
-        #update trajectory index
-        self.trajectory_index += 1
-
-        #if end of trajectory is reached
-        if self.trajectory_index >= len(self.reference_trajectory):
-            if self.path_type == 'repeat':
-                #reset to loop trajectory
-                self.trajectory_index = 0  
-            elif self.path_type == 'stop':
-                #stop at end
-                self.stop = True
+        #if end of trajectory is reached and stop is requested
+        if closest_index + N >= total_points and self.path_type == 'stop':
+            self.stop = True
         
         return ref_traj
 
@@ -207,48 +200,49 @@ class NMPCNode(Node):
 
     def control_loop(self):
     #control loop runs periodically
-        self.get_logger().info(f"Control loop running.")
-    
         if not self.odom_received:
             #wait for odometry data
             self.get_logger().info('Waiting for initial odometry data...')
             return
         
-        #get reference trajectory for next N steps
-        ref_trajectory = self.reference_trajectory_N()
-
-        #create array of reference controls based on previous controls (ie minimise change in control)
-        ref_controls = np.tile(self.previous_control, (self.controller.N, 1))
-
-        #unwrap current state
-        current_state_unwrapped = self.unwrap_current_state(self.current_state, ref_trajectory)
-        
-        #log start time
-        start_time = time.time()
-
-        #solve nmpc problem
-        self.optimal_control = self.controller.solve(current_state_unwrapped, ref_trajectory, ref_controls)
-
-        #log end time and compute time taken for optimisation calculation
-        end_time = time.time()
-        self.time_taken = end_time - start_time
-        
-        #create and publish velocity command
-        cmd_vel_msg = Twist()
-        if self.stop == True:
-            #stop
-            cmd_vel_msg.linear.x = 0.0
-            cmd_vel_msg.angular.z = 0.0
         else:
-            #apply optimal control inputs
-            cmd_vel_msg.linear.x = float(self.optimal_control[0])
-            cmd_vel_msg.angular.z = float(self.optimal_control[1])
-    
-        print("v = ", self.optimal_control[0], " and w = ", self.optimal_control[1])
-        self.cmd_vel_pub.publish(cmd_vel_msg)
+            #self.get_logger().info('Current position:')
+            #print(self.current_state)
+            
+            #get reference trajectory for next N steps
+            ref_trajectory = self.reference_trajectory_N()
 
-        #send trajectory data for plotting
-        self.send_data()
+            #create array of reference controls based on previous controls (ie minimise change in control)
+            ref_controls = np.tile(self.previous_control, (self.controller.N, 1))
+
+            #unwrap current state
+            current_state_unwrapped = self.unwrap_current_state(self.current_state, ref_trajectory)
+        
+            #log start time
+            start_time = time.time()
+
+            #solve nmpc problem
+            self.optimal_control = self.controller.solve(current_state_unwrapped, ref_trajectory, ref_controls)
+
+            #log end time and compute time taken for optimisation calculation
+            end_time = time.time()
+            self.time_taken = end_time - start_time
+        
+            #create and publish velocity command
+            cmd_vel_msg = Twist()
+            if self.stop == True:
+                #stop
+                cmd_vel_msg.linear.x = 0.0
+                cmd_vel_msg.angular.z = 0.0
+            else:
+                #apply optimal control inputs
+                cmd_vel_msg.linear.x = -float(self.optimal_control[0])
+                cmd_vel_msg.angular.z = float(self.optimal_control[1])
+    
+            self.cmd_vel_pub.publish(cmd_vel_msg)
+
+            #send trajectory data for plotting
+            self.send_data()
         
 def destroy_node(self):
 #function to close udp socket and destroy controller node
@@ -257,16 +251,13 @@ def destroy_node(self):
 
 def main(args=None):
     rclpy.init(args=args)
-    node = NMPCNode()
+    nmpc_node = NMPCNode()
     try:
-        rclpy.spin(node)
+        rclpy.spin(nmpc_node)
     except KeyboardInterrupt:
         pass
-    finally:
-        node.socket.close()
-        node.destroy_node()
-        # Only call shutdown once
-        rclpy.shutdown()
+    nmpc_node.destroy_node()
+    rclpy.shutdown()
 
 
 if __name__ == '__main__':

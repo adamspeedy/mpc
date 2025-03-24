@@ -3,19 +3,21 @@ import numpy as np
 import math
 
 class Controller:
-    def __init__(self, min_v, max_v, min_w, max_w, T, N):
+    def __init__(self, min_v, max_v, min_w, max_w, T):
     #initialise nmpc controller
         #time step
         self.T = T
 
         #horizon length
-        self.N = N
+        self.N = 15
 
         #cost function weight matrices
-        self.Q = np.diag([100, 100, 10])
-        self.R = np.diag([10, 10])
+        self.Q = np.diag([10, 10, 10])
+        self.R = np.diag([1, 1])
 
-        #linear and angular velocity costraints
+        #best setting: N=15, Q=10,10,10 R=1,1 
+
+        #linear and angular velocity constraints
         self.min_v = min_v
         self.max_v = max_v
         self.min_w = min_w
@@ -29,11 +31,11 @@ class Controller:
         self.next_states = None
         self.u0 = np.zeros((self.N, 2))
 
-        #setup optimisation problem
+        #set up optimisation problem
         self.setup_controller()
 
     def setup_controller(self):
-    #function to setup optimisation problem using CasADi Opti
+    #function to set up optimisation problem using CasADi Opti
         self.opti = ca.Opti()
 
         #state variables: x, y, theta
@@ -70,9 +72,9 @@ class Controller:
         #cost function
         obj = 0
         for i in range(self.N):
-            #position errors
-            pos_error = self.opt_states[i, :2] - self.opt_x_ref[i+1, :2]
-        
+            #position error
+            pos_error = self.opt_x_ref[i, :2] - self.opt_states[i, :2]
+
             #angle error with unwrapping
             theta_current = self.opt_states[i, 2]
             theta_ref = self.opt_x_ref[i+1, 2]
@@ -86,10 +88,10 @@ class Controller:
                 theta_current - theta_ref
             )
         
-            state_error = ca.vertcat(pos_error[0], pos_error[1], angle_error)
+            state_error = ca.vertcat(-pos_error[0], pos_error[1], angle_error)
             control_error = self.opt_controls[i, :] - self.opt_u_ref[i, :]
             obj = obj + ca.mtimes([state_error.T, self.Q, state_error]) + ca.mtimes([control_error, self.R, control_error.T])
-        
+
         self.opti.minimize(obj)
 
         #change in control input constraints
@@ -114,30 +116,41 @@ class Controller:
     def solve(self, current_state, next_trajectories, next_controls):
     #function to solve nmpc optimisation problem
         #update parameters with current state and reference values
+        assert next_trajectories.shape == (self.N + 1, 3), f"Expected shape ({self.N + 1}, 3), got {next_trajectories.shape}"
+        
         self.opti.set_value(self.opt_x0, np.array(current_state).reshape(3, 1))
         self.opti.set_value(self.opt_x_ref, next_trajectories)
         self.opti.set_value(self.opt_u_ref, next_controls)
 
-        #initialise or update predicted states
-        if self.next_states is None or np.allclose(self.next_states[0], current_state) == False:
-            self.next_states = np.zeros((self.N+1, 3))
-            self.next_states[0] = current_state
-            for i in range(1, self.N+1):
-                self.next_states[i] = next_trajectories[i]
+        #initial guess
+        self.next_states = np.zeros((self.N+1, 3))
+        self.next_states[0] = current_state
+        for i in range(1, self.N+1):
+            prev_state = self.next_states[i-1]
+            prev_control = self.u0[i-1] if i > 1 else next_controls[0]
+            self.next_states[i] = prev_state + np.array([
+                np.cos(prev_state[2]) * prev_control[0],
+                np.sin(prev_state[2]) * prev_control[0],
+                prev_control[1]
+            ]) * self.T
 
-            #unwrap angles
-            self.next_states[:, 2] = np.unwrap(self.next_states[:, 2])
+        #unwrap angles
+        self.next_states[:, 2] = np.unwrap(self.next_states[:, 2])
 
-        #initial guess for optimisation
+        #set initial guess
         self.opti.set_initial(self.opt_states, self.next_states)
         self.opti.set_initial(self.opt_controls, self.u0)
 
         #solve optimisation
-        sol = self.opti.solve()
+        try:
+            sol = self.opti.solve()
 
-        #retrieve optimal control input
-        self.u0 = sol.value(self.opt_controls)
-        self.next_states = sol.value(self.opt_states)
-
-        #return first optimal control input
-        return self.u0[0, :]
+            #retrieve optimal control
+            self.u0 = sol.value(self.opt_controls)
+            self.next_states = sol.value(self.opt_states)
+        
+            #return first optimal control input
+            return self.u0[0, :]
+        except:
+            print("Optimisation failed. Returning zero control.")
+            return np.zeros(2)
