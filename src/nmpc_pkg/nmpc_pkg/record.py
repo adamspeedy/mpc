@@ -68,7 +68,7 @@ def record_trajectory():
     node.create_subscription(Odometry, '/zed/zed_node/odom', odom_callback, 10)
 
     # Create folder for CSV file storage
-    folder_path = os.path.join(os.path.expanduser('~'), 'nmpc_ws', 'data', 'trajectories')
+    folder_path = os.path.join(os.path.expanduser('~'), 'code', 'nmpc_ws', 'data', 'trajectories')
     if not os.path.exists(folder_path):
         os.makedirs(folder_path)
     csv_file_path = os.path.join(folder_path, 'recorded_odometry.csv')
@@ -103,7 +103,7 @@ def plot_trajectory():
     plt.ylabel('Y (m)')
     plt.axis('equal')
     plt.grid()
-    folder_path = os.path.join(os.path.expanduser('~'), 'nmpc_ws', 'data', 'trajectories')
+    folder_path = os.path.join(os.path.expanduser('~'), 'code', 'nmpc_ws', 'data', 'trajectories')
     plot_file_path = os.path.join(folder_path, 'recorded_odometry_plot.png')
     plt.savefig(plot_file_path)
     plt.show()

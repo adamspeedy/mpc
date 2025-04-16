@@ -11,8 +11,8 @@ from geometry_msgs.msg import Twist
 from .controller_class import Controller  
 
 class NMPCNode(Node):
-    PLOTTER_ADDRESS = ('196.24.139.89', 12345)     #hardcoded ip address for external plotter
-    PATH_TYPE = 'repeat'                            #path-following behaviour options: 'stop' or 'repeat'
+    PLOTTER_ADDRESS = ('196.24.163.59', 12345)     #hardcoded ip address for external plotter
+    PATH_TYPE = 'stop'                            #path-following behaviour options: 'stop' or 'repeat'
 
     def __init__(self):
         super().__init__('nmpc_controller_node')
@@ -27,7 +27,7 @@ class NMPCNode(Node):
         self.get_logger().info("Loading parameters...")
 
         self.declare_parameter('rate', 10)
-        self.declare_parameter('trajectory_file', '/home/administrator/nmpc_ws/data/trajectories/recorded_odometry.csv')
+        self.declare_parameter('trajectory_file', '/home/administrator/code/nmpc_ws/data/trajectories/recorded_odometry.csv')
         self.declare_parameter('min_v', -1.0)
         self.declare_parameter('max_v', 1.0)
         self.declare_parameter('min_w', -1.5)
@@ -158,7 +158,6 @@ class NMPCNode(Node):
 
     def reference_trajectory_N(self):
     #function to retrieve next N steps of the reference trajectory
-
         #get index of closest point
         closest_index = self.find_closest_point_index(self.current_state)
 
@@ -174,7 +173,7 @@ class NMPCNode(Node):
 
         #unwrap angles in reference trajectory
         ref_traj[:, 2] = np.unwrap(ref_traj[:, 2])
-        
+
         #if end of trajectory is reached and stop is requested
         if closest_index + N >= total_points and self.path_type == 'stop':
             self.stop = True

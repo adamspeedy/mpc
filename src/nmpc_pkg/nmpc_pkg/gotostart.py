@@ -146,7 +146,7 @@ class Goto_Start(Node):
 def main(args=None):
     rclpy.init(args=args)
     
-    trajectory_file = '/home/administrator/nmpc_ws/data/trajectories/recorded_odometry.csv'
+    trajectory_file = '/home/administrator/code/nmpc_ws/data/trajectories/recorded_odometry.csv'
     goto = Goto_Start(trajectory_file)
     rclpy.spin(goto)
     
