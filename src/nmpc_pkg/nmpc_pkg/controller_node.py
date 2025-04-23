@@ -11,8 +11,8 @@ from geometry_msgs.msg import Twist
 from .controller_class import Controller  
 
 class NMPCNode(Node):
-    PLOTTER_ADDRESS = ('196.24.163.59', 12345)     #hardcoded ip address for external plotter
-    PATH_TYPE = 'stop'                            #path-following behaviour options: 'stop' or 'repeat'
+    PLOTTER_ADDRESS = ('196.24.166.140', 12345)     #hardcoded ip address for external plotter
+    PATH_TYPE = 'repeat'                            #path-following behaviour options: 'stop' or 'repeat'
 
     def __init__(self):
         super().__init__('nmpc_controller_node')
@@ -151,11 +151,25 @@ class NMPCNode(Node):
     
         #combined cost
         cost = distances + weight * angle_diffs
+
+        #find index of closest point
+        closest_index = np.argmin(cost)
     
-        #return index
-        return np.argmin(cost)
+        #check if close to end of trajectory
+        if closest_index >= len(self.reference_trajectory) - self.controller.N:
+            #if end of trajectory is reached and stop is requested
+            if self.path_type == 'stop':
+                print('Stop')
+                self.stop = True
 
+            #if close to end of trajectory and repeat is requested
+            elif self.path_type == 'repeat':
+                print('Return to start')
+                return 1
 
+        print('Index: ', closest_index)
+        return closest_index
+    
     def reference_trajectory_N(self):
     #function to retrieve next N steps of the reference trajectory
         #get index of closest point
@@ -173,10 +187,6 @@ class NMPCNode(Node):
 
         #unwrap angles in reference trajectory
         ref_traj[:, 2] = np.unwrap(ref_traj[:, 2])
-
-        #if end of trajectory is reached and stop is requested
-        if closest_index + N >= total_points and self.path_type == 'stop':
-            self.stop = True
         
         return ref_traj
 
