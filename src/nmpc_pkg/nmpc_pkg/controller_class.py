@@ -3,13 +3,13 @@ import numpy as np
 import math
 
 class Controller:
-    def __init__(self, min_v, max_v, min_w, max_w, T):
+    def __init__(self, min_v, max_v, min_w, max_w, T, N):
     #initialise nmpc controller
         #time step
         self.T = T
 
         #horizon length
-        self.N = 10
+        self.N = 5 #navigan sends 5 points
 
         #cost function weight matrices
         # (q_x, q_y, q_th)

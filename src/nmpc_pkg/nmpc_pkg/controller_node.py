@@ -11,7 +11,7 @@ from geometry_msgs.msg import Twist
 from .controller_class import Controller  
 
 class NMPCNode(Node):
-    PLOTTER_ADDRESS = ('196.24.166.140', 12345)     #hardcoded ip address for external plotter
+    PLOTTER_ADDRESS = ('196.24.161.117', 12345)     #hardcoded ip address for external plotter
     PATH_TYPE = 'repeat'                            #path-following behaviour options: 'stop' or 'repeat'
 
     def __init__(self):
