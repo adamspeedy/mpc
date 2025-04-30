@@ -1,9 +1,7 @@
 #!/usr/bin/env python3
 import numpy as np
-import csv
 import socket
 import json
-import time
 import rclpy
 from rclpy.node import Node
 from nav_msgs.msg import Path
@@ -12,8 +10,11 @@ from geometry_msgs.msg import Twist
 from .controller_class import Controller  
 
 class NaviganNMPCNode(Node):
+   PLOTTER_ADDRESS = ('196.24.161.117', 12345)
+   PATH_TYPE = 'repeat' 
+
    def __init__(self):
-      super().__init__('navigan_nmpc_controller_node')
+      super().__init__('navigan_nmpc_controller_node')   
         
       self._init_parameters()
       self._init_state_variables()
@@ -25,7 +26,6 @@ class NaviganNMPCNode(Node):
       self.get_logger().info("Loading parameters...")
 
       self.declare_parameter('rate', 10)
-      #self.declare_parameter('trajectory_file', '/home/administrator/code/nmpc_ws/data/trajectories/recorded_odometry.csv')
       self.declare_parameter('min_v', -1.0)
       self.declare_parameter('max_v', 1.0)
       self.declare_parameter('min_w', -1.5)
@@ -34,9 +34,9 @@ class NaviganNMPCNode(Node):
       #retrieve parameter values
       self.rate = self.get_parameter('rate').value
 
-      #DELETE
-      #self.csv_file = self.get_parameter('trajectory_file').value
+      self.path_points = []
 
+      
    def _init_state_variables(self):
       #initialise state variables
       self.current_state = None
@@ -47,10 +47,6 @@ class NaviganNMPCNode(Node):
       #initialise data storage for robot trajectory
       self.actual_trajectory = []
         
-      #DELETE
-      #load reference trajectory from csv file
-      #self.reference_trajectory = self.load_trajectory()
-
    def _init_communication(self):
       #initialise ROS publishers and subscribers
       self.cmd_vel_pub = self.create_publisher(Twist, '/a200_0656/twist_marker_server/cmd_vel', 10)
@@ -76,26 +72,19 @@ class NaviganNMPCNode(Node):
       #initialise nmpc controller with initial position and parameters
       self.controller = Controller(min_v, max_v, min_w, max_w, T=1.0/self.rate)
       
-      #DELETE
-      #self.trajectory_index = None
-        
       #timer for control loop
       self.timer = self.create_timer(1.0/self.rate, self.control_loop)
 
       #DELETE
       #path-following behaviour options: 'stop' or 'repeat'
-      #self.path_type = self.PATH_TYPE
-      #self.stop = False 
+      self.path_type = self.PATH_TYPE
+      self.stop = False 
    
    def odom_callback(self, msg):
    #function to process odometry messages
       #extract current position
       self.x_position = msg.pose.pose.position.x
       self.y_position = msg.pose.pose.position.y
-
-      #DELETE
-      #if self.x_position == 0.0 and self.y_position == 0.0:
-      #   return
         
       #extract current orientation and convert to euler angles
       orientation_q = msg.pose.pose.orientation
@@ -112,18 +101,18 @@ class NaviganNMPCNode(Node):
       self.odom_received = True
 
    def navigan_callback(self, msg):
-      #function to process navigan path messages
-      #extract path points
+   #function to process navigan path messages
+      #clear old points
       self.path_points = []
+      #extract path points
       for pose in msg.poses:
          x = pose.pose.position.x
          y = pose.pose.position.y
          orientation_q = pose.pose.orientation
-         th = self.euler_from_quaternion([orientation_q.x, orientation_q.y, orientation_q.z, orientation_q.w])
+         _, _, th = self.euler_from_quaternion([orientation_q.x, orientation_q.y, orientation_q.z, orientation_q.w])
          self.path_points.append([x, y, th])
-            
-      #set trajectory index to 0
-      self.trajectory_index = 0
+
+      self.get_logger().info(f"Navigan callback recieved with {len(self.path_points)} points.")
 
    def euler_from_quaternion(self, quaternion):
    #function to convert quarternion to euler angles
@@ -148,15 +137,16 @@ class NaviganNMPCNode(Node):
          'actual_y' : float(self.current_state[1]),
          'forecast_x': self.controller.next_states[:, 0].tolist() if hasattr(self.controller, 'next_states') else [],
          'forecast_y': self.controller.next_states[:, 1].tolist() if hasattr(self.controller, 'next_states') else [], 
-         'optimisation_time' : float(self.time_taken)
+         'navigan_x' : [pt[0] for pt in self.path_points],
+         'navigan_y' : [pt[1] for pt in self.path_points],
       }
 
       #send data as json encoded udp
       self.socket.sendto(json.dumps(trajectory_data).encode(), self.PLOTTER_ADDRESS)
 
    def unwrap_current_state(self, current_state, ref_trajectory):
-      #unwrap current yaw relative to reference trajectory
-      ref_angle = ref_trajectory[0, 2]
+   #unwrap current yaw relative to reference trajectory
+      ref_angle = ref_trajectory[0][2]
       current_angle = current_state[2]
     
       #calculate difference
@@ -177,6 +167,11 @@ class NaviganNMPCNode(Node):
          #wait for odometry data
          self.get_logger().info('Waiting for initial odometry data...')
          return
+
+      if not self.path_points:
+         #wait for path points
+         self.get_logger().info('Waiting for path points...')
+         return
         
       else:
          #self.get_logger().info('Current position:')
@@ -190,16 +185,13 @@ class NaviganNMPCNode(Node):
 
          #unwrap current state
          current_state_unwrapped = self.unwrap_current_state(self.current_state, ref_trajectory)
-        
-         #log start time
-         #start_time = time.time()
 
          #solve nmpc problem
-         self.optimal_control = self.controller.solve(current_state_unwrapped, ref_trajectory, ref_controls)
-
-         #log end time and compute time taken for optimisation calculation
-         #end_time = time.time()
-         #self.time_taken = end_time - start_time
+         try:
+            self.optimal_control = self.controller.solve(current_state_unwrapped, ref_trajectory, ref_controls)
+         except Exception as e:
+            self.get_logger().error(f"NMPC solver failed: {e}")
+            return
         
          #create and publish velocity command
          cmd_vel_msg = Twist()

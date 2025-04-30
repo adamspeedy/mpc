@@ -3,13 +3,13 @@ import numpy as np
 import math
 
 class Controller:
-    def __init__(self, min_v, max_v, min_w, max_w, T, N):
+    def __init__(self, min_v, max_v, min_w, max_w, T):
     #initialise nmpc controller
         #time step
         self.T = T
 
         #horizon length
-        self.N = 5 #navigan sends 5 points
+        self.N = 5 #navigan sends 6 points (N+1)
 
         #cost function weight matrices
         # (q_x, q_y, q_th)
@@ -118,7 +118,7 @@ class Controller:
     def solve(self, current_state, next_trajectories, next_controls):
     #function to solve nmpc optimisation problem
         #update parameters with current state and reference values
-        assert next_trajectories.shape == (self.N + 1, 3), f"Expected shape ({self.N + 1}, 3), got {next_trajectories.shape}"
+        next_trajectories = np.array(next_trajectories[0:6])
         
         self.opti.set_value(self.opt_x0, np.array(current_state).reshape(3, 1))
         self.opti.set_value(self.opt_x_ref, next_trajectories)
