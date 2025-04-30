@@ -26,10 +26,10 @@ class NaviganNMPCNode(Node):
       self.get_logger().info("Loading parameters...")
 
       self.declare_parameter('rate', 10)
-      self.declare_parameter('min_v', -1.0)
-      self.declare_parameter('max_v', 1.0)
-      self.declare_parameter('min_w', -1.5)
-      self.declare_parameter('max_w', 1.5)
+      self.declare_parameter('min_v', -0.3)  #-1.0
+      self.declare_parameter('max_v', 0.3)   #1.0
+      self.declare_parameter('min_w', -1.5)  #-1.5
+      self.declare_parameter('max_w', 1.5)   #1.5
         
       #retrieve parameter values
       self.rate = self.get_parameter('rate').value
@@ -50,7 +50,7 @@ class NaviganNMPCNode(Node):
    def _init_communication(self):
       #initialise ROS publishers and subscribers
       self.cmd_vel_pub = self.create_publisher(Twist, '/a200_0656/twist_marker_server/cmd_vel', 10)
-      self.odom_sub = self.create_subscription(Odometry, '/zed/zed_node/odom', self.odom_callback, 10)
+      self.odom_sub = self.create_subscription(Odometry, '/camera_odom', self.odom_callback, 10)
       self.navigan_sub = self.create_subscription(Path, '/navigan_path', self.navigan_callback, 10)
 
       #wait for initial position
@@ -174,9 +174,6 @@ class NaviganNMPCNode(Node):
          return
         
       else:
-         #self.get_logger().info('Current position:')
-         #print(self.current_state)
-            
          #get reference trajectory for next N steps
          ref_trajectory = self.path_points
 
