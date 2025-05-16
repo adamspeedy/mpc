@@ -23,7 +23,8 @@ setup(
            'record = nmpc_pkg.record:main',
            'gotostart = nmpc_pkg.gotostart:main',
            'nmpc_controller_node = nmpc_pkg.controller_node:main',
-           'navigan_nmpc_controller_node = nmpc_pkg.navigan_controller_node:main'
+           'navigan_nmpc_controller_node = nmpc_pkg.navigan_controller_node:main',
+           'switching_controller_node = nmpc_pkg.switching_controller_node:main'
         ],
     },
 )

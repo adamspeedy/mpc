@@ -1,0 +1,5 @@
+  File "/home/administrator/code/nmpc_ws/install/nmpc_pkg/lib/python3.10/site-packages/nmpc_pkg/controller_node.py", line 77
+    self.controller = Controller(min_v, max_v, min_w, max_w, T=1.0/self.rate, N)
+                                                                               ^
+SyntaxError: positional argument follows keyword argument
+

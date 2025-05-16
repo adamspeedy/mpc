@@ -3,13 +3,13 @@ import numpy as np
 import math
 
 class Controller:
-    def __init__(self, min_v, max_v, min_w, max_w, T):
+    def __init__(self, min_v, max_v, min_w, max_w, N, T):
     #initialise nmpc controller
         #time step
         self.T = T
 
         #horizon length
-        self.N = 5 #navigan sends 6 points (N+1)
+        self.N = N 
 
         #cost function weight matrices
         # (q_x, q_y, q_th)
@@ -17,7 +17,7 @@ class Controller:
         # (r_v, r_w)
         self.R = np.diag([20, 20])
 
-        #best setting(indoors): N=10, Q=500,500,50 R=20,20 
+        #best setting(indoors): Q=500,500,50 R=20,20 
 
         #linear and angular velocity constraints
         self.min_v = min_v
@@ -118,7 +118,7 @@ class Controller:
     def solve(self, current_state, next_trajectories, next_controls):
     #function to solve nmpc optimisation problem
         #update parameters with current state and reference values
-        next_trajectories = np.array(next_trajectories[0:6])
+        next_trajectories = np.array(next_trajectories[0:self.N+1])
         
         self.opti.set_value(self.opt_x0, np.array(current_state).reshape(3, 1))
         self.opti.set_value(self.opt_x_ref, next_trajectories)
@@ -152,7 +152,9 @@ class Controller:
             self.next_states = sol.value(self.opt_states)
         
             #return first optimal control input
+            self.success = True
             return self.u0[0, :]
         except:
             print("Optimisation failed. Returning zero control.")
+            self.success = False
             return np.zeros(2)

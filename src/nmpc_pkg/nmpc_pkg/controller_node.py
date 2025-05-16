@@ -11,14 +11,14 @@ from geometry_msgs.msg import Twist
 from .controller_class import Controller  
 
 class NMPCNode(Node):
-    PLOTTER_ADDRESS = ('196.24.161.117', 12345)     #hardcoded ip address for external plotter
+    PLOTTER_ADDRESS = ('192.168.131.61', 12345)     #hardcoded ip address for external plotter
     PATH_TYPE = 'repeat'                            #path-following behaviour options: 'stop' or 'repeat'
 
     def __init__(self):
         super().__init__('nmpc_controller_node')
 
-        self._init_parameters()
         self._init_state_variables()
+        self._init_parameters()
         self._init_communication()
         self._init_controller()
         
@@ -53,7 +53,7 @@ class NMPCNode(Node):
     def _init_communication(self):
         #initialise ROS publishers and subscribers
         self.cmd_vel_pub = self.create_publisher(Twist, '/a200_0656/twist_marker_server/cmd_vel', 10)
-        self.odom_sub = self.create_subscription(Odometry, '/zed/zed_node/odom', self.odom_callback, 10)
+        self.odom_sub = self.create_subscription(Odometry, '/camera_odom', self.odom_callback, 10)
 
         #wait for initial position
         self.initial_position_received = False
@@ -71,8 +71,10 @@ class NMPCNode(Node):
         min_w = self.get_parameter('min_w').value
         max_w = self.get_parameter('max_w').value
         
+        N = self.scale_N(self.reference_trajectory)
+        
         #initialise nmpc controller with initial position and parameters
-        self.controller = Controller(min_v, max_v, min_w, max_w, T=1.0/self.rate)
+        self.controller = Controller(min_v, max_v, min_w, max_w, N, T=1.0/self.rate)
         self.trajectory_index = None
         
         #timer for control loop
@@ -81,17 +83,6 @@ class NMPCNode(Node):
         #path-following behaviour options: 'stop' or 'repeat'
         self.path_type = self.PATH_TYPE
         self.stop = False 
-
-    def load_trajectory(self):
-    #function to load reference trajectory from csv file
-        reference_trajectory = []
-        with open(self.csv_file, 'r') as file:
-            csv_reader = csv.reader(file)
-            next(csv_reader)
-            for row in csv_reader:
-                x, y, theta = map(float, row)
-                reference_trajectory.append([x, y, theta])
-        return np.array(reference_trajectory)
 
     def odom_callback(self, msg):
     #function to process odometry messages
@@ -115,6 +106,30 @@ class NMPCNode(Node):
             self.initial_position_received = True
             
         self.odom_received = True
+
+    def load_trajectory(self):
+    #function to load reference trajectory from csv file
+        reference_trajectory = []
+        with open(self.csv_file, 'r') as file:
+            csv_reader = csv.reader(file)
+            next(csv_reader)
+            for row in csv_reader:
+                x, y, theta = map(float, row)
+                reference_trajectory.append([x, y, theta])
+        return np.array(reference_trajectory)
+    
+    def scale_N(self, trajectory):
+    #function to scale N according to length of trajectory
+        trajectory_length = len(trajectory)
+
+        if trajectory_length < 500:
+            #if trajectory is short, set N to 10
+            N = 10
+        else:
+            #scale N according to length of trajectory
+            N = int(trajectory_length / 50)
+
+        return N
 
     def euler_from_quaternion(self, quaternion):
     #function to convert quarternion to euler angles
@@ -264,6 +279,7 @@ class NMPCNode(Node):
                 cmd_vel_msg.angular.z = 0.0
             else:
                 #apply optimal control inputs
+                print(self.optimal_control)
                 cmd_vel_msg.linear.x = float(self.optimal_control[0])
                 cmd_vel_msg.angular.z = float(self.optimal_control[1])
     
