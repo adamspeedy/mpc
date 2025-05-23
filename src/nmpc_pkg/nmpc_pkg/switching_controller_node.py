@@ -85,7 +85,8 @@ class SwitchingNMPCNode(Node):
 
       #intitialise controller type
       self.active_behaviour = 'path_following'
-
+      
+      #
       self.stop = False
       self.path_type = 'repeat'
 
@@ -195,8 +196,8 @@ class SwitchingNMPCNode(Node):
    def publish_dummy_goal(self):
       dummy_goal = PoseStamped()
       dummy_goal.header.frame_id = 'map'
-      dummy_goal.pose.position.x = 3.0
-      dummy_goal.pose.position.y = 0.0
+      dummy_goal.pose.position.x = self.reference_trajectory[self.N][0]
+      dummy_goal.pose.position.y = self.reference_trajectory[self.N][1]
       dummy_goal.pose.orientation.w = 1.0
 
       self.get_logger().info("Publishing dummy goal to trigger NaviGAN.")
