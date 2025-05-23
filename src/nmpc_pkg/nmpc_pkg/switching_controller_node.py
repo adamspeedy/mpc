@@ -8,8 +8,8 @@ from rclpy.node import Node
 from nav_msgs.msg import Path
 from nav_msgs.msg import Odometry
 from geometry_msgs.msg import Twist
-from people_msgs.msg import People
 from geometry_msgs.msg import PoseStamped
+from people_msgs.msg import People
 from .controller_class import Controller  
 from rclpy.qos import (
     QoSProfile,
@@ -24,6 +24,8 @@ from rclpy.qos import (
 from rclpy.duration import Duration
 
 class SwitchingNMPCNode(Node):
+   PLOTTER_ADDRESS = ('196.24.165.132', 12345)
+
    def __init__(self):
       super().__init__('switching_nmpc_controller_node')   
         
@@ -89,16 +91,16 @@ class SwitchingNMPCNode(Node):
 
    def _init_communication(self):
       #initialise qos profiles
-      sensor_qos, reliable_qos, fast_qos, parameter_qos = self.get_common_qos_profiles()
+      self.sensor_qos, self.reliable_qos, self.fast_qos, self.parameter_qos = self.get_common_qos_profiles()
 
       #initialise ROS publishers and subscribers
       self.cmd_vel_pub = self.create_publisher(Twist, '/a200_0656/twist_marker_server/cmd_vel', 10)
-      self.goal_pub = self.create_publisher(PoseStamped, '/goal_pose', 10)
+      self.goal_pub = self.create_publisher(PoseStamped, '/goal_pose', self.reliable_qos)
 
       self.odom_sub = self.create_subscription(Odometry, '/camera_odom', self.odom_callback, 10)
       self.navigan_sub = self.create_subscription(Path, '/navigan_path', self.navigan_callback, self.fast_qos)
       self.goal_sub = self.create_subscription(PoseStamped, '/goal_pose', self.goal_pose_callback, self.reliable_qos)
-      self.people_sub = self.create_subscription(People, '/people', self.people_callback, self.fast_qos)
+      self.people_sub = self.create_subscription(People, '/people', self.people_callback, self.sensor_qos)
 
       #wait for initial position
       self.initial_position_received = False
@@ -108,6 +110,9 @@ class SwitchingNMPCNode(Node):
     
       #create udp socket to send trajectory data to external plotter
       self.socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+
+      #send dummy goal to activate navigan
+      self.publish_dummy_goal()
     
    def _init_controller(self):
    #get controller parameters
@@ -169,27 +174,33 @@ class SwitchingNMPCNode(Node):
 
    def people_callback(self, msg):
    #function to process people messages
-
-      #load positions of people
+      
       self.people_positions = [(person.position.x, person.position.y) for person in msg.people]
-      previous_people_detected = self.people_detected
 
-      if len(self.people_positions) == 0:
+      #check if people are detected
+      if not self.people_positions:
+         if self.people_detected:
+            self.get_logger().info("No people detected.")
          self.people_detected = False
-
-         if previous_people_detected:
-            self.get_logger().info("No people detected in the scene.")
-
       else:
+         if not self.people_detected:
+            self.get_logger().info("People detected in the scene.")
          self.people_detected = True
-
-         if not previous_people_detected:
-            self.get_logger().info(f"People detected: {self.people_positions}")
 
    def goal_pose_callback(self, msg):
    #function to process goal pose messages
       self.goal_position = msg.pose
-      self.get_logger().info(f"!!!Goal position updated!!!: {self.goal_position}")
+      self.get_logger().info(f"Goal position updated: {self.goal_position}")
+
+   def publish_dummy_goal(self):
+      dummy_goal = PoseStamped()
+      dummy_goal.header.frame_id = 'map'
+      dummy_goal.pose.position.x = 3.0
+      dummy_goal.pose.position.y = 0.0
+      dummy_goal.pose.orientation.w = 1.0
+
+      self.get_logger().info("Publishing dummy goal to trigger NaviGAN.")
+      self.goal_pub.publish(dummy_goal)
    
    def load_trajectory(self):
    #function to load reference trajectory from csv file
@@ -232,7 +243,7 @@ class SwitchingNMPCNode(Node):
                current_angle -= 2 * np.pi
          else:
                current_angle += 2 * np.pi
-    
+
       return np.array([current_state[0], current_state[1], current_angle])
    
    def find_closest_point_index(self, current_state):
@@ -333,9 +344,11 @@ class SwitchingNMPCNode(Node):
    
    def set_goal_position(self):
    #function to set goal position
-      
+      traj = self.reference_trajectory_N()
+
       #get point to send as goal from reference trajectory
-      goal_point = self.reference_trajectory_N()[self.N]
+      goal_point = traj[self.N]
+
       goal_msg = PoseStamped()
       goal_msg.header.frame_id = 'map'
       goal_msg.pose.position.x = goal_point[0]
@@ -345,6 +358,26 @@ class SwitchingNMPCNode(Node):
       goal_msg.pose.orientation.w = np.cos(yaw/2)
 
       self.goal_pub.publish(goal_msg)
+
+   def send_data(self):
+   #function to send trajectory data to external plotter
+
+      #send empty navigan if path following
+      if self.active_behaviour == 'path_following':
+         self.navigan_x = []
+         self.navigan_y = []
+
+      trajectory_data ={
+         'actual_x' : float(self.current_state[0]),
+         'actual_y' : float(self.current_state[1]),
+         'forecast_x': self.controller.next_states[:, 0].tolist() if hasattr(self.controller, 'next_states') else [],
+         'forecast_y': self.controller.next_states[:, 1].tolist() if hasattr(self.controller, 'next_states') else [], 
+         'navigan_x' : self.navigan_x,
+         'navigan_y' : self.navigan_y,
+         }
+
+      #send data as json encoded udp
+      self.socket.sendto(json.dumps(trajectory_data).encode(), self.PLOTTER_ADDRESS)
 
    def control_loop(self):
    #control loop runs periodically
@@ -382,6 +415,11 @@ class SwitchingNMPCNode(Node):
             cmd_vel_msg.angular.z = float(self.optimal_control[1])
     
          self.cmd_vel_pub.publish(cmd_vel_msg)
+
+         self.get_logger().debug(f"Following trajectory: {self.active_behaviour}")
+
+         #send trajectory data for plotting
+         self.send_data()
 
    def get_common_qos_profiles(self):
    # For sensor data (like camera feeds, laser scans)

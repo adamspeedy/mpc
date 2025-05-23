@@ -120,7 +120,7 @@ class NaviganNMPCNode(Node):
    def goal_pose_callback(self, msg):
    #function to process goal pose messages
       self.goal_position = msg.pose
-      self.get_logger().info(f"!!!Goal position updated!!!: {self.goal_position}")
+      self.get_logger().info(f"Goal position updated: {self.goal_position.position.x}, {self.goal_position.position.y}")
     
    def navigan_callback(self, msg):
    #function to process navigan path messages
