@@ -1,0 +1,4 @@
+Invoking command in '/home/administrator/code/nmpc_ws/build/people_msgs': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --build /home/administrator/code/nmpc_ws/build/people_msgs -- -j4 -l4
+Invoked command in '/home/administrator/code/nmpc_ws/build/people_msgs' returned '0': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --build /home/administrator/code/nmpc_ws/build/people_msgs -- -j4 -l4
+Invoking command in '/home/administrator/code/nmpc_ws/build/people_msgs': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --install /home/administrator/code/nmpc_ws/build/people_msgs
+Invoked command in '/home/administrator/code/nmpc_ws/build/people_msgs' returned '0': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --install /home/administrator/code/nmpc_ws/build/people_msgs

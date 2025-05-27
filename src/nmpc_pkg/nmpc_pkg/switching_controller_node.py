@@ -24,7 +24,7 @@ from rclpy.qos import (
 from rclpy.duration import Duration
 
 class SwitchingNMPCNode(Node):
-   PLOTTER_ADDRESS = ('196.24.165.132', 12345)
+   PLOTTER_ADDRESS = ('196.24.167.82', 12345)
 
    def __init__(self):
       super().__init__('switching_nmpc_controller_node')   
@@ -44,7 +44,7 @@ class SwitchingNMPCNode(Node):
       self.declare_parameter('max_v', 1.0)   #1.0
       self.declare_parameter('min_w', -1.5)  #-1.5
       self.declare_parameter('max_w', 1.5)   #1.5
-      self.declare_parameter('N', 5)
+      self.declare_parameter('N', 11)        #depend on length of navigan path -1
       self.declare_parameter('controller_switch_delay', 1.0)
       
       self.rate = self.get_parameter('rate').value
@@ -88,7 +88,8 @@ class SwitchingNMPCNode(Node):
       
       #
       self.stop = False
-      self.path_type = 'repeat'
+      self.wait = False
+      self.path_type = 'stop'
 
    def _init_communication(self):
       #initialise qos profiles
@@ -196,8 +197,8 @@ class SwitchingNMPCNode(Node):
    def publish_dummy_goal(self):
       dummy_goal = PoseStamped()
       dummy_goal.header.frame_id = 'map'
-      dummy_goal.pose.position.x = self.reference_trajectory[self.N][0]
-      dummy_goal.pose.position.y = self.reference_trajectory[self.N][1]
+      dummy_goal.pose.position.x = self.reference_trajectory[len(self.reference_trajectory)-1][0]
+      dummy_goal.pose.position.y = self.reference_trajectory[len(self.reference_trajectory)-1][1]
       dummy_goal.pose.orientation.w = 1.0
 
       self.get_logger().info("Publishing dummy goal to trigger NaviGAN.")
@@ -287,7 +288,7 @@ class SwitchingNMPCNode(Node):
    def reference_trajectory_N(self):
    #function to retrieve next N steps of the reference trajectory
       #get index of closest point
-      closest_index = self.find_closest_point_index(self.current_state)
+      self.closest_index = self.find_closest_point_index(self.current_state)
 
       N = self.controller.N
       total_points = len(self.reference_trajectory)
@@ -296,7 +297,7 @@ class SwitchingNMPCNode(Node):
       ref_traj = np.zeros((N+1, 3))
         
       for i in range(N+1):
-         index = (closest_index + i) % total_points
+         index = (self.closest_index + i) % total_points
          ref_traj[i] = self.reference_trajectory[index]
 
       #unwrap angles in reference trajectory
@@ -319,10 +320,10 @@ class SwitchingNMPCNode(Node):
          self.get_logger().info(f"Switching controller from {past_behaviour} to {self.active_behaviour}")
          
          #stop the robot
-         self.stop = True
+         self.wait = True
          
          #set goal if switching to navigan
-         if self.active_behaviour == 'navigan_nmpc':
+         if self.active_behaviour == 'navigan':
             self.set_goal_position()
 
    def get_controller_trajectory(self):
@@ -330,34 +331,34 @@ class SwitchingNMPCNode(Node):
       ref_trajectory = []
 
       if self.active_behaviour == 'path_following':
-         self.stop = False
+         self.wait = False
          ref_trajectory = self.reference_trajectory_N()
 
       elif self.active_behaviour == 'navigan':
-         self.stop = False
+         self.wait = False
          if len(self.path_points) > 0:
+            #self.set_goal_position()
             ref_trajectory = np.array(self.path_points)
          else:
             self.get_logger().warning("No navigan path points available. Stopping.")
-            self.stop = True
+            self.wait = True
 
       return ref_trajectory
    
    def set_goal_position(self):
    #function to set goal position
-      traj = self.reference_trajectory_N()
+      traj = self.reference_trajectory
 
       #get point to send as goal from reference trajectory
-      goal_point = traj[self.N]
+      goal_point = traj[self.closest_index + 30] if (self.closest_index + 30) < len(traj) else traj[len(traj)]
 
       goal_msg = PoseStamped()
       goal_msg.header.frame_id = 'map'
       goal_msg.pose.position.x = goal_point[0]
       goal_msg.pose.position.y = goal_point[1]
-      yaw = goal_point[2]
-      goal_msg.pose.orientation.z = np.sin(yaw/2)
-      goal_msg.pose.orientation.w = np.cos(yaw/2)
+      goal_msg.pose.orientation.w = 1.0
 
+      self.get_logger().info(f"Setting goal position to: {goal_point[0]}, {goal_point[1]}")
       self.goal_pub.publish(goal_msg)
 
    def send_data(self):
@@ -405,11 +406,11 @@ class SwitchingNMPCNode(Node):
         
          #create and publish velocity command
          cmd_vel_msg = Twist()
-         if self.stop == True:
+         if self.stop == True or self.wait == True:
             #stop
             cmd_vel_msg.linear.x = 0.0
             cmd_vel_msg.angular.z = 0.0
-            self.get_logger().debug("Robot stopped")
+            self.get_logger().info("Robot stopped")
          else:
             #apply optimal control inputs
             cmd_vel_msg.linear.x = float(self.optimal_control[0])
@@ -417,7 +418,7 @@ class SwitchingNMPCNode(Node):
     
          self.cmd_vel_pub.publish(cmd_vel_msg)
 
-         self.get_logger().debug(f"Following trajectory: {self.active_behaviour}")
+         #self.get_logger().info(f"Following trajectory: {self.active_behaviour}")
 
          #send trajectory data for plotting
          self.send_data()

@@ -1,0 +1,28 @@
+[1.501s] Invoking command in '/home/administrator/code/nmpc_ws/src/nmpc_pkg': PYTHONPATH=/home/administrator/code/nmpc_ws/build/nmpc_pkg/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/administrator/code/nmpc_ws/install/nmpc_pkg/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/nmpc_pkg build --build-base /home/administrator/code/nmpc_ws/build/nmpc_pkg/build install --record /home/administrator/code/nmpc_ws/build/nmpc_pkg/install.log --single-version-externally-managed install_data
+[2.199s] running egg_info
+[2.204s] writing ../../build/nmpc_pkg/nmpc_pkg.egg-info/PKG-INFO
+[2.205s] writing dependency_links to ../../build/nmpc_pkg/nmpc_pkg.egg-info/dependency_links.txt
+[2.207s] writing entry points to ../../build/nmpc_pkg/nmpc_pkg.egg-info/entry_points.txt
+[2.209s] writing requirements to ../../build/nmpc_pkg/nmpc_pkg.egg-info/requires.txt
+[2.210s] writing top-level names to ../../build/nmpc_pkg/nmpc_pkg.egg-info/top_level.txt
+[2.215s] reading manifest file '../../build/nmpc_pkg/nmpc_pkg.egg-info/SOURCES.txt'
+[2.218s] writing manifest file '../../build/nmpc_pkg/nmpc_pkg.egg-info/SOURCES.txt'
+[2.219s] running build
+[2.220s] running build_py
+[2.221s] copying nmpc_pkg/switching_controller_node.py -> /home/administrator/code/nmpc_ws/build/nmpc_pkg/build/lib/nmpc_pkg
+[2.224s] running install
+[2.226s] running install_lib
+[2.228s] copying /home/administrator/code/nmpc_ws/build/nmpc_pkg/build/lib/nmpc_pkg/switching_controller_node.py -> /home/administrator/code/nmpc_ws/install/nmpc_pkg/lib/python3.10/site-packages/nmpc_pkg
+[2.232s] byte-compiling /home/administrator/code/nmpc_ws/install/nmpc_pkg/lib/python3.10/site-packages/nmpc_pkg/switching_controller_node.py to switching_controller_node.cpython-310.pyc
+[2.239s] running install_data
+[2.241s] running install_egg_info
+[2.245s] removing '/home/administrator/code/nmpc_ws/install/nmpc_pkg/lib/python3.10/site-packages/nmpc_pkg-0.0.0-py3.10.egg-info' (and everything under it)
+[2.248s] Copying ../../build/nmpc_pkg/nmpc_pkg.egg-info to /home/administrator/code/nmpc_ws/install/nmpc_pkg/lib/python3.10/site-packages/nmpc_pkg-0.0.0-py3.10.egg-info
+[2.257s] running install_scripts
+[2.299s] Installing gotostart script to /home/administrator/code/nmpc_ws/install/nmpc_pkg/lib/nmpc_pkg
+[2.301s] Installing navigan_nmpc_controller_node script to /home/administrator/code/nmpc_ws/install/nmpc_pkg/lib/nmpc_pkg
+[2.303s] Installing nmpc_controller_node script to /home/administrator/code/nmpc_ws/install/nmpc_pkg/lib/nmpc_pkg
+[2.304s] Installing record script to /home/administrator/code/nmpc_ws/install/nmpc_pkg/lib/nmpc_pkg
+[2.306s] Installing switching_controller_node script to /home/administrator/code/nmpc_ws/install/nmpc_pkg/lib/nmpc_pkg
+[2.307s] writing list of installed files to '/home/administrator/code/nmpc_ws/build/nmpc_pkg/install.log'
+[2.374s] Invoked command in '/home/administrator/code/nmpc_ws/src/nmpc_pkg' returned '0': PYTHONPATH=/home/administrator/code/nmpc_ws/build/nmpc_pkg/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/administrator/code/nmpc_ws/install/nmpc_pkg/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/nmpc_pkg build --build-base /home/administrator/code/nmpc_ws/build/nmpc_pkg/build install --record /home/administrator/code/nmpc_ws/build/nmpc_pkg/install.log --single-version-externally-managed install_data
