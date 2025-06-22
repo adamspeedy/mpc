@@ -1,4 +1,6 @@
 from setuptools import find_packages, setup
+import os
+from glob import glob
 
 package_name = 'nmpc_pkg'
 
@@ -9,6 +11,7 @@ setup(
     data_files=[
         ('share/ament_index/resource_index/packages',
             ['resource/' + package_name]),
+        (os.path.join('share', package_name, 'launch'), glob('launch/*.py')),
         ('share/' + package_name, ['package.xml']),
     ],
     install_requires=['setuptools'],
@@ -24,6 +27,7 @@ setup(
            'gotostart = nmpc_pkg.gotostart:main',
            'nmpc_controller_node = nmpc_pkg.controller_node:main',
            'navigan_nmpc_controller_node = nmpc_pkg.navigan_controller_node:main',
+           'navigan_controller_node = nmpc_pkg.navigan_controller_node:main',
            'switching_controller_node = nmpc_pkg.switching_controller_node:main'
         ],
     },
