@@ -3,7 +3,7 @@ from launch.actions import RegisterEventHandler, LogInfo
 from launch_ros.actions import Node
 from launch.event_handlers import OnProcessExit
 from launch.substitutions import LaunchConfiguration
-from launch.conditions import IfCondition
+from launch.conditions import IfCondition, UnlessCondition
 from launch.actions import DeclareLaunchArgument
 from launch_ros.parameter_descriptions import ParameterValue
 
@@ -22,14 +22,14 @@ def generate_launch_description():
         executable='nmpc_controller_node',
         name='nmpc_controller_node',
         output='screen',
-        condition=IfCondition(LaunchConfiguration('use_navigan'), negate=True)
+        condition=UnlessCondition(LaunchConfiguration('use_navigan'))
     )
 
     #NMPC controller node for NaviGAN path
     navigan_node = Node(
-        package='navigan_pkg',
-        executable='navigan_nmpc_controller_node',
-        name='navigan_nmpc_controller_node',
+        package='nmpc_pkg',
+        executable='navigan_controller_node',
+        name='navigan_controller_node',
         output='screen',
         condition=IfCondition(LaunchConfiguration('use_navigan'))
     )
