@@ -1,4 +1,0 @@
-[0.000000] (-) TimerEvent: {}
-[0.000296] (-) JobUnselected: {'identifier': 'aru_navigan'}
-[0.000341] (-) JobUnselected: {'identifier': 'nmpc_pkg'}
-[0.000607] (-) EventReactorShutdown: {}

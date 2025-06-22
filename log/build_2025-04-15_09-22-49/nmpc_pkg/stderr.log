@@ -1,5 +1,0 @@
-  File "/home/administrator/code/nmpc_ws/install/nmpc_pkg/lib/python3.10/site-packages/nmpc_pkg/controller_node.py", line 156
-    if np.argmin(cost) > (len(self.reference_trajectory) - self.controller.N) # np.min(cost) < 0.1:  # Some small threshold to account for the loop back
-                                                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-SyntaxError: expected ':'
-
