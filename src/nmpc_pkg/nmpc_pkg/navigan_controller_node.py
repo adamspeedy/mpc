@@ -68,10 +68,12 @@ class NaviganNMPCNode(Node):
    def _init_communication(self):
       #initialise ROS publishers and subscribers
       sensor_qos, reliable_qos, fast_qos, parameter_qos = self.get_common_qos_profiles()
+      qos_profile = QoSProfile(depth=10)
+      # qos_profile.durability = DurabilityPolicy.TRANSIENT_LOCAL
       
       self.cmd_vel_pub = self.create_publisher(Twist, '/a200_0656/twist_marker_server/cmd_vel', 10)
       self.odom_sub = self.create_subscription(Odometry, '/camera_odom', self.odom_callback, 10)
-      self.navigan_sub = self.create_subscription(Path, '/navigan_path', self.navigan_callback, qos_profile=fast_qos)
+      self.navigan_sub = self.create_subscription(Path, '/vtr/planning_path', self.navigan_callback, qos_profile=qos_profile) #fast_qos)
       self.goal_sub = self.create_subscription(PoseStamped, '/goal_pose', self.goal_pose_callback, qos_profile=reliable_qos)
 
       #wait for initial position
@@ -85,6 +87,7 @@ class NaviganNMPCNode(Node):
     
    def _init_controller(self):
       #get controller parameters
+      self.get_logger().info("starting controller")
       min_v = self.get_parameter('min_v').value
       max_v = self.get_parameter('max_v').value
       min_w = self.get_parameter('min_w').value
@@ -123,6 +126,7 @@ class NaviganNMPCNode(Node):
       self.get_logger().info(f"Goal position updated: {self.goal_position.position.x}, {self.goal_position.position.y}")
     
    def navigan_callback(self, msg):
+      rclpy.logging.get_logger('navigan_nmpc_controller_node').info("Received Navigan path message.")
    #function to process navigan path messages
       #clear old points
       self.path_points = []
