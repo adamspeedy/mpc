@@ -65,13 +65,14 @@ def record_trajectory():
     node = Node('trajectory_recorder')
 
     # Subscribe to the filtered odometry topic
-    node.create_subscription(Odometry, '/camera_odom', odom_callback, 10)
+    node.create_subscription(Odometry,'/vtr/odometry', odom_callback, 10) # '/camera_odom'
 
     # Create folder for CSV file storage
-    folder_path = os.path.join(os.path.expanduser('~'), 'code', 'nmpc_ws', 'data', 'trajectories')
+    # folder_path = os.path.join(os.path.expanduser('~'), 'code', 'nmpc_ws', 'data', 'trajectories')
+    folder_path = "/home/adam/Desktop/MPC/data/trajectories"
     if not os.path.exists(folder_path):
         os.makedirs(folder_path)
-    csv_file_path = os.path.join(folder_path, 'recorded_odometry.csv')
+    csv_file_path = os.path.join(folder_path, 'new_odometry.csv')
 
     with open(csv_file_path, mode='w', newline='') as file:
         writer = csv.writer(file)
@@ -103,8 +104,9 @@ def plot_trajectory():
     plt.ylabel('Y (m)')
     plt.axis('equal')
     plt.grid()
-    folder_path = os.path.join(os.path.expanduser('~'), 'code', 'nmpc_ws', 'data', 'trajectories')
-    plot_file_path = os.path.join(folder_path, 'recorded_odometry_plot.png')
+    folder_path = "/home/adam/Desktop/MPC/data/trajectories"
+    # folder_path = os.path.join(os.path.expanduser('~'), 'code', 'nmpc_ws', 'data', 'trajectories')
+    plot_file_path = os.path.join(folder_path, 'new_odometry_plot.png')
     plt.savefig(plot_file_path)
     plt.show()
 
