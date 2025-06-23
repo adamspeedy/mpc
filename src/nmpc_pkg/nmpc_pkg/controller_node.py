@@ -27,7 +27,7 @@ class NMPCNode(Node):
         self.get_logger().info("Loading parameters...")
 
         self.declare_parameter('rate', 10)
-        self.declare_parameter('trajectory_file', '/home/administrator/code/nmpc_ws/data/trajectories/recorded_odometry.csv')
+        self.declare_parameter('trajectory_file', '/home/adam/Desktop/MPC/data/trajectories/new_odometry.csv')
         self.declare_parameter('min_v', -1.0)
         self.declare_parameter('max_v', 1.0)
         self.declare_parameter('min_w', -1.5)
@@ -36,6 +36,7 @@ class NMPCNode(Node):
         #retrieve parameter values
         self.rate = self.get_parameter('rate').value
         self.csv_file = self.get_parameter('trajectory_file').value
+        print(self.csv_file)
 
     def _init_state_variables(self):
         #initialise state variables
@@ -53,7 +54,7 @@ class NMPCNode(Node):
     def _init_communication(self):
         #initialise ROS publishers and subscribers
         self.cmd_vel_pub = self.create_publisher(Twist, '/a200_0656/twist_marker_server/cmd_vel', 10)
-        self.odom_sub = self.create_subscription(Odometry, '/camera_odom', self.odom_callback, 10)
+        self.odom_sub = self.create_subscription(Odometry, '/vtr/odometry', self.odom_callback, 10)
 
         #wait for initial position
         self.initial_position_received = False
@@ -108,6 +109,8 @@ class NMPCNode(Node):
         self.odom_received = True
 
     def load_trajectory(self):
+        # print(self.csv_file)
+        self.csv_file = '/home/adam/Desktop/MPC/data/trajectories/new_odometry.csv'
     #function to load reference trajectory from csv file
         reference_trajectory = []
         with open(self.csv_file, 'r') as file:
