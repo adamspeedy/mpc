@@ -38,11 +38,11 @@ class NaviganNMPCNode(Node):
       self.get_logger().info("Loading parameters...")
 
       self.declare_parameter('rate', 20)
-      self.declare_parameter('min_v', -1.0)  #-1.0
-      self.declare_parameter('max_v', 1.0)   #1.0
-      self.declare_parameter('min_w', -1.5)  #-1.5
-      self.declare_parameter('max_w', 1.5)   #1.5
-      self.declare_parameter('N', 5)
+      self.declare_parameter('min_v', -0.5)  #-1.0
+      self.declare_parameter('max_v', 0.5)   #1.0
+      self.declare_parameter('min_w', -0.4)  #-1.5
+      self.declare_parameter('max_w', 0.4)   #1.5
+      self.declare_parameter('N', 10)
         
       #retrieve parameter values
       self.rate = self.get_parameter('rate').value
@@ -72,7 +72,7 @@ class NaviganNMPCNode(Node):
       # qos_profile.durability = DurabilityPolicy.TRANSIENT_LOCAL
       
       self.cmd_vel_pub = self.create_publisher(Twist, '/a200_0656/twist_marker_server/cmd_vel', 10)
-      self.odom_sub = self.create_subscription(Odometry, '/camera_odom', self.odom_callback, 10)
+      self.odom_sub = self.create_subscription(Odometry,'/zed/zed_node/odom' , self.odom_callback, 10) #'/vtr/odometry'
       self.navigan_sub = self.create_subscription(Path, '/vtr/planning_path', self.navigan_callback, qos_profile=qos_profile) #fast_qos)
       self.goal_sub = self.create_subscription(PoseStamped, '/goal_pose', self.goal_pose_callback, qos_profile=reliable_qos)
 
@@ -134,10 +134,11 @@ class NaviganNMPCNode(Node):
       self.navigan_y = []
       #extract path points
       for pose in msg.poses:
-         x = pose.pose.position.x
-         y = pose.pose.position.y
+         x = pose.pose.position.x -self.initial_position[0]
+         y = pose.pose.position.y -self.initial_position[1]
          orientation_q = pose.pose.orientation
          _, _, th = self.euler_from_quaternion([orientation_q.x, orientation_q.y, orientation_q.z, orientation_q.w])
+         th = th - self.initial_position[2]  
          self.path_points.append([x, y, th])
          self.navigan_x.append(x)
          self.navigan_y.append(y)
@@ -239,19 +240,20 @@ class NaviganNMPCNode(Node):
 
          cmd_vel_msg = Twist()
 
-         if self.goal_position is None:
-            self.get_logger().warn("No goal recieved. Waiting.")
-            return
-         else:
-            if self.reachGoalCheck(self.goal_position, _r=0.5):
-               self.get_logger().info("Goal reached. Stopping.")
-               #stop robot if goal is reached
-               cmd_vel_msg.linear.x = 0.0
-               cmd_vel_msg.angular.z = 0.0
-            else:
+         # if self.goal_position is None:
+         #    self.get_logger().warn("No goal recieved. Waiting.")
+         #    return
+         # else:
+         #    if self.reachGoalCheck(self.goal_position, _r=0.5):
+         #       self.get_logger().info("Goal reached. Stopping.")
+         #       #stop robot if goal is reached
+         #       cmd_vel_msg.linear.x = 0.0
+         #       cmd_vel_msg.angular.z = 0.0
+            # else:
                #apply optimal control inputs
-               cmd_vel_msg.linear.x = float(self.optimal_control[0])
-               cmd_vel_msg.angular.z = float(self.optimal_control[1])
+         cmd_vel_msg.linear.x = float(self.optimal_control[0])
+         cmd_vel_msg.angular.z = float(self.optimal_control[1])
+         print(f"Publishing cmd_vel: linear.x={cmd_vel_msg.linear.x}, angular.z={cmd_vel_msg.angular.z}")
 
          self.cmd_vel_pub.publish(cmd_vel_msg)
 
